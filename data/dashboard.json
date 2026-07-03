@@ -2,7 +2,7 @@
   "summary": {
     "period": "2026年1-6月 · 全场景",
     "compare_period": "2025 vs 2026 · 教辅店铺 · 1-6月",
-    "generated_at": "2026-07-03 17:16",
+    "generated_at": "2026-07-03 17:59",
     "rules": {
       "brand": "res_title 中【】内文字",
       "book": "album_ids/album_id 去重计数",
@@ -303,7 +303,7 @@
           "v2026_note": "2026年1-6月",
           "published_2025_all": true,
           "published_2026": 364126,
-          "unpublished_2026": 23986,
+          "unpublished_2026": 33995,
           "yoy": 4.4,
           "analysis": "1-6月生产同比小幅增长（+4.4%）"
         }
@@ -455,7 +455,7 @@
       "published_2025": 381518,
       "unpublished_2025": 0,
       "published_2026": 364126,
-      "unpublished_2026": 23986,
+      "unpublished_2026": 33995,
       "published_2025_all": true,
       "monthly": {
         "labels": [
