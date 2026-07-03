@@ -284,11 +284,6 @@
             <div class="chip-val" id="unpub-cumulative">—</div>
             <div class="chip-unit">份</div>
           </div>
-          <div class="unpub-total-chip">
-            <div class="chip-label">计划上线合计</div>
-            <div class="chip-val" id="unpub-schedule-total">—</div>
-            <div class="chip-unit">份</div>
-          </div>
         </div>
       </div>
       <div class="unpub-table-wrap">
@@ -837,7 +832,6 @@ function renderUnpubScheduleTable(){
     d.note||"待发布 · create_time 为2026年1-5月上传 · 按 min_online_time 计划上线月份";
   document.getElementById("unpub-current-month").textContent=fmt(monthView.unpublished_2026||0);
   document.getElementById("unpub-cumulative").textContent=fmt(cumulativeView.unpublished_2026||0);
-  document.getElementById("unpub-schedule-total").textContent=fmt(d.total);
   const rows=d.labels.map((label,i)=>({label,val:d.values[i]}));
   const peak=rows.reduce((a,b)=>b.val>a.val?b:a,rows[0]||{label:"—",val:0});
   document.getElementById("unpub-schedule-peak").textContent=peak.label;
