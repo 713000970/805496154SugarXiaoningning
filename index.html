@@ -265,7 +265,7 @@
     <div class="unpub-panel">
       <div class="unpub-panel-head">
         <div>
-          <div class="unpub-panel-title">待发布资源排期</div>
+          <div class="unpub-panel-title">待发布资源分布</div>
           <p class="unpub-panel-note" id="unpub-schedule-note"></p>
         </div>
         <div class="unpub-head-right">
@@ -288,7 +288,7 @@
       </div>
       <div class="unpub-table-wrap">
         <div class="unpub-list-head">
-          <span>计划上线月</span>
+          <span>上传月份</span>
           <span>分布</span>
           <span>数量</span>
           <span>占比</span>
@@ -823,23 +823,28 @@ function renderOverallStats(){
 }
 
 function renderUnpubScheduleTable(){
-  const d=DATA.overall.production.unpublished_schedule;
+  const p=DATA.overall.production;
+  const d=p.unpublished_schedule;
+  const uploadDist=p.monthly_unpublished||{};
   const prodRow=summaryMetric("生产");
   const monthView=prodRow?.month_view||{};
   const cumulativeView=prodRow?.cumulative_view||{};
   if(!d) return;
   document.getElementById("unpub-schedule-note").textContent=
-    d.note||"待发布 · create_time 为2026年1-5月上传 · 按 min_online_time 计划上线月份";
+    "待发布资源 · 按上传月份统计；上方本月/累计数据与下方分布表同口径";
   document.getElementById("unpub-current-month").textContent=fmt(monthView.unpublished_2026||0);
   document.getElementById("unpub-cumulative").textContent=fmt(cumulativeView.unpublished_2026||0);
-  const rows=d.labels.map((label,i)=>({label,val:d.values[i]}));
+  const labels=uploadDist.labels||[];
+  const values=uploadDist["2026"]||[];
+  const total=values.reduce((sum,v)=>sum+(Number(v)||0),0);
+  const rows=labels.map((label,i)=>({label,val:Number(values[i])||0}));
   const peak=rows.reduce((a,b)=>b.val>a.val?b:a,rows[0]||{label:"—",val:0});
   document.getElementById("unpub-schedule-peak").textContent=peak.label;
   document.getElementById("unpub-schedule-peak-val").textContent=`${fmt(peak.val)} 份`;
-  const maxVal=Math.max(...d.values,1);
+  const maxVal=Math.max(...values,1);
   const list=document.getElementById("unpub-schedule-list");
   list.innerHTML=rows.map(r=>{
-    const pct=d.total?((r.val/d.total)*100).toFixed(1):"0.0";
+    const pct=total?((r.val/total)*100).toFixed(1):"0.0";
     const barW=Math.max(3,Math.round((r.val/maxVal)*100));
     return`<div class="unpub-row">
       <span class="unpub-month"><i class="unpub-month-dot"></i>${r.label}</span>
@@ -853,7 +858,7 @@ function renderUnpubScheduleTable(){
   `<div class="unpub-row total-row">
     <span class="unpub-month"><i class="unpub-month-dot"></i>合计</span>
     <div class="unpub-row-bar"><div class="unpub-bar-track"><div class="unpub-bar-fill" style="width:100%;opacity:.4"></div></div></div>
-    <span class="unpub-qty">${fmt(d.total)}</span>
+    <span class="unpub-qty">${fmt(total)}</span>
     <span class="unpub-pct">100%</span>
   </div>`;
 }
