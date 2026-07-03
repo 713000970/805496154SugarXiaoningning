@@ -233,6 +233,14 @@
         <button type="button" class="view-toggle-btn active" data-view="month" role="tab" aria-selected="true">月度</button>
         <button type="button" class="view-toggle-btn" data-view="cumulative" role="tab" aria-selected="false">年度累计</button>
       </div>
+      <div class="view-toggle scene-month-toggle" id="overall-month-toggle" role="tablist" aria-label="选择分析月份">
+        <button type="button" class="view-toggle-btn" data-overall-mm="01" role="tab">1月</button>
+        <button type="button" class="view-toggle-btn" data-overall-mm="02" role="tab">2月</button>
+        <button type="button" class="view-toggle-btn" data-overall-mm="03" role="tab">3月</button>
+        <button type="button" class="view-toggle-btn" data-overall-mm="04" role="tab">4月</button>
+        <button type="button" class="view-toggle-btn" data-overall-mm="05" role="tab">5月</button>
+        <button type="button" class="view-toggle-btn active" data-overall-mm="06" role="tab" aria-selected="true">6月</button>
+      </div>
     </div>
     <div class="overall-kpi-grid" id="overall-kpi-grid"></div>
   </div>
@@ -668,9 +676,9 @@ function summaryMetric(name){
 const OVERALL_VIEWS={
   month:{
     key:"month_view",
-    title:"当月数据（6月）",
-    col25:"2025年6月",
-    col26:"2026年6月",
+    title:"月度数据",
+    col25:"2025年",
+    col26:"2026年",
     noteKey:"month"
   },
   cumulative:{
@@ -682,6 +690,7 @@ const OVERALL_VIEWS={
   }
 };
 let overallViewMode="month";
+let overallMonth="06";
 
 function metricShortName(metric){
   return metric.replace(/（[^）]+）/,"");
@@ -693,11 +702,18 @@ function yoyChipClass(y){
 
 function renderOverallKpiCards(rows, viewKey, cfg){
   const visible=rows.filter(r=>!(r.month_only&&viewKey==="cumulative_view"));
+  const monthViews=DATA.overall?.month_views?.[overallMonth]||{};
   const grid=document.getElementById("overall-kpi-grid");
   const n=visible.length;
   grid.className=`overall-kpi-grid cols-${n<=4?4:5}`;
   grid.innerHTML=visible.map(r=>{
-    const v=r[viewKey];
+    let v=r[viewKey];
+    if(viewKey==="month_view"){
+      if(r.metric.includes("上新店铺")) v=monthViews.provider||v;
+      if(r.metric.includes("图书征集")) v=monthViews.collection||v;
+      if(r.metric.includes("资料生产")) v=monthViews.production||v;
+      if(r.metric.includes("资料发布")) v=monthViews.publish||v;
+    }
     if(!v) return "";
     const fmtVal=v.use_exact_fmt?fmtExact:fmt;
     const title=metricShortName(r.metric);
@@ -735,11 +751,19 @@ function setOverallView(mode){
   overallViewMode=mode;
   const cfg=OVERALL_VIEWS[mode];
   const notes=DATA.overall.period_notes||{};
-  document.getElementById("overall-view-title").textContent=cfg.title;
+  const monthLabel=`${parseInt(overallMonth,10)}月`;
+  document.getElementById("overall-view-title").textContent=mode==="month"?`月度数据（${monthLabel}）`:cfg.title;
   document.getElementById("overall-view-note").textContent=
-    notes[cfg.noteKey]||(mode==="month"?"当月口径：2025年6月 vs 2026年6月":"累计口径：2025年1-6月 vs 2026年1-6月");
-  document.querySelectorAll(".view-toggle-btn").forEach(btn=>{
+    notes[cfg.noteKey]||(mode==="month"?`月度口径：2025年${monthLabel} vs 2026年${monthLabel}`:"累计口径：2025年1-6月 vs 2026年1-6月");
+  const monthToggle=document.getElementById("overall-month-toggle");
+  if(monthToggle) monthToggle.style.display=mode==="month"?"flex":"none";
+  document.querySelectorAll("[data-view]").forEach(btn=>{
     const active=btn.dataset.view===mode;
+    btn.classList.toggle("active",active);
+    btn.setAttribute("aria-selected",active?"true":"false");
+  });
+  document.querySelectorAll("[data-overall-mm]").forEach(btn=>{
+    const active=btn.dataset.overallMm===overallMonth;
     btn.classList.toggle("active",active);
     btn.setAttribute("aria-selected",active?"true":"false");
   });
@@ -747,8 +771,14 @@ function setOverallView(mode){
 }
 
 function initOverallViewToggle(){
-  document.querySelectorAll(".view-toggle-btn").forEach(btn=>{
+  document.querySelectorAll("[data-view]").forEach(btn=>{
     btn.addEventListener("click",()=>setOverallView(btn.dataset.view));
+  });
+  document.querySelectorAll("[data-overall-mm]").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      overallMonth=btn.dataset.overallMm;
+      setOverallView("month");
+    });
   });
 }
 
