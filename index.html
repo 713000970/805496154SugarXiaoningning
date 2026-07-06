@@ -24,11 +24,13 @@
     .share-btn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:8px;padding:8px 14px;font-size:13px;font-family:inherit;font-weight:600;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.04)}
     .share-btn:hover{border-color:var(--green-border);background:var(--green-bg)}
     .share-status{font-size:12px;color:var(--muted);max-width:260px;line-height:1.5}
-    .section-nav{order:1;display:flex;align-items:center;gap:10px;margin:2px 0 18px;flex-wrap:wrap;padding:10px 12px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 1px 6px rgba(0,0,0,.04)}
-    .section-nav::before{content:"页面目录";font-size:13px;font-weight:700;color:#555;margin-right:2px}
-    .section-nav a{display:inline-flex;align-items:center;justify-content:center;height:34px;padding:0 16px;border:1px solid var(--green-border);border-radius:8px;background:#fff;color:var(--ink);font-size:14px;font-weight:600;text-decoration:none;box-shadow:0 1px 4px rgba(0,0,0,.04);transition:background .15s,border-color .15s,color .15s}
-    .section-nav a:hover{background:#eef8f0;border-color:#9bc9aa;color:var(--up)}
+    .section-nav{order:1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:4px 0 24px;padding:14px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.05)}
+    .section-nav::before{content:"项目目录";grid-column:1/-1;font-size:15px;font-weight:800;color:var(--ink);letter-spacing:.02em}
+    .section-nav a{display:flex;align-items:center;justify-content:space-between;min-height:56px;padding:0 18px;border:1px solid var(--green-border);border-radius:10px;background:linear-gradient(180deg,#f8fcf9,#fff);color:var(--ink);font-size:17px;font-weight:800;text-decoration:none;box-shadow:0 2px 10px rgba(45,106,79,.06);transition:transform .15s,background .15s,border-color .15s,color .15s}
+    .section-nav a::after{content:"›";font-size:24px;line-height:1;color:var(--up)}
+    .section-nav a:hover{transform:translateY(-1px);background:#eef8f0;border-color:#9bc9aa;color:var(--up)}
     .page-header{order:0}
+    #overall-anchor,#overall-summary-anchor,#overall-detail-anchor,#collection-anchor,#production-anchor,#price-anchor,#publish-anchor,#unpub-anchor,#provider-overview-anchor{scroll-margin-top:18px}
     #overall-anchor{order:10;scroll-margin-top:16px}
     .overall-section-main{order:11}
     .overall-section-detail{order:12}
@@ -37,7 +39,7 @@
     #provider-detail{order:22;scroll-margin-top:16px}
     #july-anchor{order:30;scroll-margin-top:16px}
     #july-section{order:31}
-    .side-toc{position:fixed;right:18px;top:112px;width:184px;z-index:30;background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:12px;padding:12px;box-shadow:0 8px 24px rgba(0,0,0,.08);backdrop-filter:blur(6px)}
+    .side-toc{position:fixed;right:18px;top:112px;width:204px;z-index:30;background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:12px;padding:12px;box-shadow:0 8px 24px rgba(0,0,0,.08);backdrop-filter:blur(6px)}
     .side-toc-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:8px}
     .side-toc a,.side-toc button{width:100%;display:flex;align-items:center;min-height:30px;border:0;background:transparent;color:#555;text-decoration:none;text-align:left;font-family:inherit;font-size:12px;line-height:1.35;border-radius:7px;padding:6px 8px;cursor:pointer}
     .side-toc a:hover,.side-toc button:hover{background:var(--green-bg);color:var(--up)}
@@ -219,6 +221,7 @@
       .chart-grid-2,.tables-grid-2{grid-template-columns:1fr}
       .overall-kpi-grid.cols-4,.overall-kpi-grid.cols-5,.july-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
       .unpub-list-head,.unpub-row{grid-template-columns:64px 1fr 64px 48px;gap:8px;padding-left:10px;padding-right:10px}
+      .section-nav{grid-template-columns:1fr}
       .section-nav::before{width:100%;margin-bottom:2px}
       .side-toc{display:none}
     }
@@ -249,8 +252,11 @@
     <a class="toc-main" href="#overall-anchor">整体数据分析</a>
     <a class="toc-sub" href="#overall-summary-anchor">整体分析</a>
     <a class="toc-sub" href="#overall-detail-anchor">具体数据</a>
-    <a class="toc-sub" href="#price-anchor">资源定价</a>
-    <a class="toc-sub" href="#publish-anchor">教辅发布</a>
+    <a class="toc-sub" href="#collection-anchor">图书征集</a>
+    <a class="toc-sub" href="#production-anchor">资料生产</a>
+    <a class="toc-sub" href="#price-anchor">资料定价</a>
+    <a class="toc-sub" href="#publish-anchor">资料发布</a>
+    <a class="toc-sub" href="#unpub-anchor">待发布资源分布</a>
     <div class="toc-divider"></div>
     <a class="toc-main" href="#provider-anchor">具体店铺分析</a>
     <a class="toc-sub" href="#provider-overview-anchor">全部店铺概览</a>
@@ -296,20 +302,69 @@
   <div class="section overall-section-detail" id="overall-detail-anchor">
     <div class="section-head"><div class="section-title">2、具体数据</div></div>
 
-    <div class="block-title">（1）图书征集</div>
+    <div class="block-title" id="collection-anchor">（1）图书征集</div>
     <div class="stat-banner" id="stat-collection-month"></div>
     <div class="stat-banner stat-banner-cum" id="stat-collection-cumulative"></div>
     <p class="chart-desc" id="stat-collection-desc">分月对比 · 各月征集量 · 虚线为当月同比</p>
     <div class="legend"><span><i class="dot y25"></i>2025</span><span><i class="dot y26"></i>2026</span><span><i class="dot" style="background:#888"></i>同比</span></div>
     <div id="chart-collection" class="chart enhanced"></div>
 
-    <div class="block-title">（2）图书生产</div>
+    <div class="block-title" id="production-anchor">（2）资料生产</div>
     <div class="stat-banner" id="stat-production-month"></div>
     <div class="stat-banner stat-banner-cum" id="stat-production-cumulative"></div>
     <p class="chart-desc" id="stat-production-desc">分月对比 · 各月生产量 · 虚线为当月同比</p>
     <div class="legend"><span><i class="dot y25"></i>2025</span><span><i class="dot y26"></i>2026</span><span><i class="dot" style="background:#888"></i>同比</span></div>
     <div id="chart-production" class="chart enhanced"></div>
 
+    <div class="block-title" id="price-anchor">（3）资料定价</div>
+    <p class="chart-desc">月度平均均价（元）· 柱顶标注 · 虚线同比</p>
+    <div class="legend"><span><i class="dot y25"></i>2025</span><span><i class="dot y26"></i>2026</span><span><i class="dot" style="background:#888"></i>同比</span></div>
+    <div id="chart-price-global" class="chart enhanced"></div>
+
+    <div class="chart-grid-2">
+      <div class="chart-panel">
+        <div class="chart-panel-title">① 定价维度占比</div>
+        <p class="chart-desc" style="margin:0 0 10px">免费 · 3元以下 · 3-5元 · 5-10元 · 10-20元 · 20元以上</p>
+        <div id="chart-price-dist" class="chart"></div>
+      </div>
+      <div class="chart-panel">
+        <div class="chart-panel-title">② 定价分布变化</div>
+        <p class="chart-desc" style="margin:0 0 10px">各价位段占比变化（百分点）</p>
+        <div id="chart-price-dist-change" class="chart"></div>
+      </div>
+    </div>
+
+    <div class="block-title" id="publish-anchor">（4）资料发布</div>
+    <div class="stat-banner" id="stat-publish-month"></div>
+    <div class="stat-banner stat-banner-cum" id="stat-publish-cumulative"></div>
+    <div class="chart-grid-2">
+      <div class="chart-panel">
+        <div class="chart-panel-title">发布总量对比</div>
+        <p class="chart-desc" style="margin:0 0 10px">2025 / 2026 发布量 · 虚线同比</p>
+        <div class="legend"><span><i class="dot y25"></i>2025</span><span><i class="dot y26"></i>2026</span></div>
+        <div id="chart-publish" class="chart"></div>
+      </div>
+      <div class="chart-panel">
+        <div class="scene-panel-head">
+          <div>
+            <div class="chart-panel-title">场景分布</div>
+            <p class="chart-desc" style="margin:0" id="scene-chart-desc">一级场景 Top10 · 2025 / 2026 · <span id="scene-month-label">6月</span></p>
+          </div>
+          <div class="view-toggle scene-month-toggle" id="scene-month-toggle" role="tablist">
+            <button type="button" class="view-toggle-btn" data-mm="01" role="tab">1月</button>
+            <button type="button" class="view-toggle-btn" data-mm="02" role="tab">2月</button>
+            <button type="button" class="view-toggle-btn" data-mm="03" role="tab">3月</button>
+            <button type="button" class="view-toggle-btn" data-mm="04" role="tab">4月</button>
+            <button type="button" class="view-toggle-btn" data-mm="05" role="tab">5月</button>
+            <button type="button" class="view-toggle-btn active" data-mm="06" role="tab" aria-selected="true">6月</button>
+            <button type="button" class="view-toggle-btn" data-mm="cumulative" role="tab">累计</button>
+          </div>
+        </div>
+        <div id="chart-scene" class="chart"></div>
+      </div>
+    </div>
+
+    <div class="block-title" id="unpub-anchor">（5）待发布资源分布</div>
     <div class="unpub-panel">
       <div class="unpub-panel-head">
         <div>
@@ -342,54 +397,6 @@
           <span>占比</span>
         </div>
         <div class="unpub-list" id="unpub-schedule-list"></div>
-      </div>
-    </div>
-
-    <div class="block-title" id="price-anchor">资源定价</div>
-    <p class="chart-desc">月度平均均价（元）· 柱顶标注 · 虚线同比</p>
-    <div class="legend"><span><i class="dot y25"></i>2025</span><span><i class="dot y26"></i>2026</span><span><i class="dot" style="background:#888"></i>同比</span></div>
-    <div id="chart-price-global" class="chart enhanced"></div>
-
-    <div class="chart-grid-2">
-      <div class="chart-panel">
-        <div class="chart-panel-title">① 定价维度占比</div>
-        <p class="chart-desc" style="margin:0 0 10px">免费 · 3元以下 · 3-5元 · 5-10元 · 10-20元 · 20元以上</p>
-        <div id="chart-price-dist" class="chart"></div>
-      </div>
-      <div class="chart-panel">
-        <div class="chart-panel-title">② 定价分布变化</div>
-        <p class="chart-desc" style="margin:0 0 10px">各价位段占比变化（百分点）</p>
-        <div id="chart-price-dist-change" class="chart"></div>
-      </div>
-    </div>
-
-    <div class="block-title" id="publish-anchor">（3）教辅发布</div>
-    <div class="stat-banner" id="stat-publish-month"></div>
-    <div class="stat-banner stat-banner-cum" id="stat-publish-cumulative"></div>
-    <div class="chart-grid-2">
-      <div class="chart-panel">
-        <div class="chart-panel-title">发布总量对比</div>
-        <p class="chart-desc" style="margin:0 0 10px">2025 / 2026 发布量 · 虚线同比</p>
-        <div class="legend"><span><i class="dot y25"></i>2025</span><span><i class="dot y26"></i>2026</span></div>
-        <div id="chart-publish" class="chart"></div>
-      </div>
-      <div class="chart-panel">
-        <div class="scene-panel-head">
-          <div>
-            <div class="chart-panel-title">场景分布</div>
-            <p class="chart-desc" style="margin:0" id="scene-chart-desc">一级场景 Top10 · 2025 / 2026 · <span id="scene-month-label">6月</span></p>
-          </div>
-          <div class="view-toggle scene-month-toggle" id="scene-month-toggle" role="tablist">
-            <button type="button" class="view-toggle-btn" data-mm="01" role="tab">1月</button>
-            <button type="button" class="view-toggle-btn" data-mm="02" role="tab">2月</button>
-            <button type="button" class="view-toggle-btn" data-mm="03" role="tab">3月</button>
-            <button type="button" class="view-toggle-btn" data-mm="04" role="tab">4月</button>
-            <button type="button" class="view-toggle-btn" data-mm="05" role="tab">5月</button>
-            <button type="button" class="view-toggle-btn active" data-mm="06" role="tab" aria-selected="true">6月</button>
-            <button type="button" class="view-toggle-btn" data-mm="cumulative" role="tab">累计</button>
-          </div>
-        </div>
-        <div id="chart-scene" class="chart"></div>
       </div>
     </div>
   </div>
