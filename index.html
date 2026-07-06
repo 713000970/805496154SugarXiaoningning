@@ -14,7 +14,7 @@
     }
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:"DM Sans","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
-    .wrap{max-width:1400px;margin:0 auto;padding:28px 20px 60px}
+    .wrap{max-width:1400px;margin:0 auto;padding:28px 20px 60px;display:flex;flex-direction:column}
     .page-header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}
     .page-title{display:flex;align-items:center;justify-content:center;gap:12px;min-width:0}
     .page-header .logo{height:40px;width:auto;display:block;flex-shrink:0}
@@ -23,6 +23,18 @@
     .share-btn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:8px;padding:8px 14px;font-size:13px;font-family:inherit;font-weight:600;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.04)}
     .share-btn:hover{border-color:var(--green-border);background:var(--green-bg)}
     .share-status{font-size:12px;color:var(--muted);max-width:260px;line-height:1.5}
+    .section-nav{order:1;display:flex;align-items:center;gap:10px;margin:2px 0 18px;flex-wrap:wrap}
+    .section-nav a{display:inline-flex;align-items:center;justify-content:center;height:34px;padding:0 16px;border:1px solid var(--green-border);border-radius:8px;background:#fff;color:var(--ink);font-size:14px;font-weight:600;text-decoration:none;box-shadow:0 1px 4px rgba(0,0,0,.04);transition:background .15s,border-color .15s,color .15s}
+    .section-nav a:hover{background:#eef8f0;border-color:#9bc9aa;color:var(--up)}
+    .page-header{order:0}
+    #overall-anchor{order:10;scroll-margin-top:16px}
+    .overall-section-main{order:11}
+    .overall-section-detail{order:12}
+    #provider-anchor{order:20;scroll-margin-top:16px}
+    .provider-overview-section{order:21}
+    #provider-detail{order:22;scroll-margin-top:16px}
+    #july-anchor{order:30;scroll-margin-top:16px}
+    #july-section{order:31}
     .sub{color:var(--muted);font-size:14px;margin-bottom:20px}
     .tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
     .tag{font-size:12px;padding:4px 10px;background:#fff;border:1px solid var(--line);border-radius:999px;color:var(--muted)}
@@ -212,15 +224,20 @@
       <span class="share-status" id="share-status"></span>
     </div>
   </header>
+  <nav class="section-nav" aria-label="页面板块导航">
+    <a href="#overall-anchor">整体数据分析</a>
+    <a href="#provider-anchor">具体店铺分析</a>
+    <a href="#july-anchor">同期次月生产数据</a>
+  </nav>
   <div class="page-meta">
   <p class="sub" id="period-desc"></p>
   <div class="tags" id="meta-tags"></div>
   <div class="rules" id="rules"></div>
   </div>
 
-  <div class="part-header">（一）整体数据分析</div>
+  <div class="part-header" id="overall-anchor">（一）整体数据分析</div>
 
-  <div class="section">
+  <div class="section overall-section-main">
     <div class="section-head">
       <div class="section-title">1、整体分析</div>
     </div>
@@ -245,7 +262,7 @@
     <div class="overall-kpi-grid" id="overall-kpi-grid"></div>
   </div>
 
-  <div class="section">
+  <div class="section overall-section-detail">
     <div class="section-head"><div class="section-title">2、具体数据</div></div>
 
     <div class="block-title">（1）图书征集</div>
@@ -346,7 +363,7 @@
     </div>
   </div>
 
-  <div class="part-header">（二）同期次月生产与图书征集</div>
+  <div class="part-header" id="july-anchor">（三）同期次月生产数据</div>
 
   <div class="section" id="july-section">
     <div class="section-head">
@@ -388,9 +405,9 @@
     </div>
   </div>
 
-  <div class="part-header">（三）具体店铺数据分析</div>
+  <div class="part-header" id="provider-anchor">（二）具体店铺数据分析</div>
 
-  <div class="section">
+  <div class="section provider-overview-section">
     <div class="section-head">
       <div class="section-title">全部店铺概览</div>
       <div class="toolbar">
@@ -1322,4 +1339,5 @@ load().catch(e=>{document.querySelector(".wrap").innerHTML=`<div style="padding:
 </script>
 </body>
 </html>
+
 
