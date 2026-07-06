@@ -13,6 +13,7 @@
       --y25:#c45c26; --y26:#1e5f74; --up:#2d6a4f; --down:#d94f4f;
     }
     *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
     body{font-family:"DM Sans","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
     .wrap{max-width:1400px;margin:0 auto;padding:28px 20px 60px;display:flex;flex-direction:column}
     .page-header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}
@@ -23,7 +24,8 @@
     .share-btn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:8px;padding:8px 14px;font-size:13px;font-family:inherit;font-weight:600;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.04)}
     .share-btn:hover{border-color:var(--green-border);background:var(--green-bg)}
     .share-status{font-size:12px;color:var(--muted);max-width:260px;line-height:1.5}
-    .section-nav{order:1;display:flex;align-items:center;gap:10px;margin:2px 0 18px;flex-wrap:wrap}
+    .section-nav{order:1;display:flex;align-items:center;gap:10px;margin:2px 0 18px;flex-wrap:wrap;padding:10px 12px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+    .section-nav::before{content:"页面目录";font-size:13px;font-weight:700;color:#555;margin-right:2px}
     .section-nav a{display:inline-flex;align-items:center;justify-content:center;height:34px;padding:0 16px;border:1px solid var(--green-border);border-radius:8px;background:#fff;color:var(--ink);font-size:14px;font-weight:600;text-decoration:none;box-shadow:0 1px 4px rgba(0,0,0,.04);transition:background .15s,border-color .15s,color .15s}
     .section-nav a:hover{background:#eef8f0;border-color:#9bc9aa;color:var(--up)}
     .page-header{order:0}
@@ -35,6 +37,14 @@
     #provider-detail{order:22;scroll-margin-top:16px}
     #july-anchor{order:30;scroll-margin-top:16px}
     #july-section{order:31}
+    .side-toc{position:fixed;right:18px;top:112px;width:184px;z-index:30;background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:12px;padding:12px;box-shadow:0 8px 24px rgba(0,0,0,.08);backdrop-filter:blur(6px)}
+    .side-toc-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:8px}
+    .side-toc a,.side-toc button{width:100%;display:flex;align-items:center;min-height:30px;border:0;background:transparent;color:#555;text-decoration:none;text-align:left;font-family:inherit;font-size:12px;line-height:1.35;border-radius:7px;padding:6px 8px;cursor:pointer}
+    .side-toc a:hover,.side-toc button:hover{background:var(--green-bg);color:var(--up)}
+    .side-toc .toc-main{font-weight:700;color:var(--ink)}
+    .side-toc .toc-sub{padding-left:18px;color:#666}
+    .side-toc .toc-divider{height:1px;background:var(--line);margin:7px 0}
+    .side-toc button{margin-top:6px;justify-content:center;background:#f7faf8;border:1px solid var(--green-border);font-weight:700;color:var(--up)}
     .sub{color:var(--muted);font-size:14px;margin-bottom:20px}
     .tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
     .tag{font-size:12px;padding:4px 10px;background:#fff;border:1px solid var(--line);border-radius:999px;color:var(--muted)}
@@ -209,6 +219,11 @@
       .chart-grid-2,.tables-grid-2{grid-template-columns:1fr}
       .overall-kpi-grid.cols-4,.overall-kpi-grid.cols-5,.july-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
       .unpub-list-head,.unpub-row{grid-template-columns:64px 1fr 64px 48px;gap:8px;padding-left:10px;padding-right:10px}
+      .section-nav::before{width:100%;margin-bottom:2px}
+      .side-toc{display:none}
+    }
+    @media(max-width:1500px){
+      .side-toc{right:14px;top:auto;bottom:16px;width:178px}
     }
   </style>
 </head>
@@ -229,6 +244,22 @@
     <a href="#provider-anchor">具体店铺分析</a>
     <a href="#july-anchor">同期次月生产数据</a>
   </nav>
+  <aside class="side-toc" aria-label="右侧页面目录">
+    <div class="side-toc-title">快速定位</div>
+    <a class="toc-main" href="#overall-anchor">整体数据分析</a>
+    <a class="toc-sub" href="#overall-summary-anchor">整体分析</a>
+    <a class="toc-sub" href="#overall-detail-anchor">具体数据</a>
+    <a class="toc-sub" href="#price-anchor">资源定价</a>
+    <a class="toc-sub" href="#publish-anchor">教辅发布</a>
+    <div class="toc-divider"></div>
+    <a class="toc-main" href="#provider-anchor">具体店铺分析</a>
+    <a class="toc-sub" href="#provider-overview-anchor">全部店铺概览</a>
+    <a class="toc-sub" href="#provider-detail">店铺明细分析</a>
+    <div class="toc-divider"></div>
+    <a class="toc-main" href="#july-anchor">同期次月生产数据</a>
+    <a class="toc-sub" href="#july-section">生产与图书征集</a>
+    <button type="button" id="back-to-top">返回顶部</button>
+  </aside>
   <div class="page-meta">
   <p class="sub" id="period-desc"></p>
   <div class="tags" id="meta-tags"></div>
@@ -237,7 +268,7 @@
 
   <div class="part-header" id="overall-anchor">（一）整体数据分析</div>
 
-  <div class="section overall-section-main">
+  <div class="section overall-section-main" id="overall-summary-anchor">
     <div class="section-head">
       <div class="section-title">1、整体分析</div>
     </div>
@@ -262,7 +293,7 @@
     <div class="overall-kpi-grid" id="overall-kpi-grid"></div>
   </div>
 
-  <div class="section overall-section-detail">
+  <div class="section overall-section-detail" id="overall-detail-anchor">
     <div class="section-head"><div class="section-title">2、具体数据</div></div>
 
     <div class="block-title">（1）图书征集</div>
@@ -314,7 +345,7 @@
       </div>
     </div>
 
-    <div class="block-title">资源定价</div>
+    <div class="block-title" id="price-anchor">资源定价</div>
     <p class="chart-desc">月度平均均价（元）· 柱顶标注 · 虚线同比</p>
     <div class="legend"><span><i class="dot y25"></i>2025</span><span><i class="dot y26"></i>2026</span><span><i class="dot" style="background:#888"></i>同比</span></div>
     <div id="chart-price-global" class="chart enhanced"></div>
@@ -332,7 +363,7 @@
       </div>
     </div>
 
-    <div class="block-title">（3）教辅发布</div>
+    <div class="block-title" id="publish-anchor">（3）教辅发布</div>
     <div class="stat-banner" id="stat-publish-month"></div>
     <div class="stat-banner stat-banner-cum" id="stat-publish-cumulative"></div>
     <div class="chart-grid-2">
@@ -407,7 +438,7 @@
 
   <div class="part-header" id="provider-anchor">（二）具体店铺数据分析</div>
 
-  <div class="section provider-overview-section">
+  <div class="section provider-overview-section" id="provider-overview-anchor">
     <div class="section-head">
       <div class="section-title">全部店铺概览</div>
       <div class="toolbar">
@@ -1064,6 +1095,11 @@ function renderJulySection(){
   }
 }
 
+function initSideToc(){
+  const topBtn=document.getElementById("back-to-top");
+  if(topBtn) topBtn.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));
+}
+
 function renderJulyProviderChart(){
   const top=DATA.july?.top_providers;
   if(!top) return;
@@ -1121,6 +1157,7 @@ async function load(){
   DATA=await r.json();
   renderHeader();
   initShareButton();
+  initSideToc();
   initOverallViewToggle();
   initSceneMonthToggle();
   renderOverall();
