@@ -154,20 +154,19 @@
     .unpub-peak-chip .chip-val{font-size:15px;font-weight:700;color:var(--y26);line-height:1.2}
     .unpub-peak-chip .chip-unit{font-size:11px;color:#888;margin-top:2px}
     .unpub-table-wrap{border:1px solid var(--line);border-radius:10px;background:#fff;overflow:hidden}
-    .unpub-list-head{display:grid;grid-template-columns:76px 1fr 80px 56px;gap:10px;padding:10px 14px;background:#f5f8f6;border-bottom:1px solid #eef0ee;font-size:11px;font-weight:600;color:#666}
-    .unpub-list-head span:nth-child(n+3){text-align:right}
-    .unpub-list{padding:6px 8px 8px;max-height:340px;overflow:auto}
-    .unpub-row{display:grid;grid-template-columns:76px 1fr 80px 56px;gap:10px;align-items:center;padding:9px 6px;border-radius:8px;transition:background .12s}
-    .unpub-row:nth-child(even){background:#fafcfa}
-    .unpub-row:hover{background:#f3f9f5}
-    .unpub-row.total-row{margin-top:4px;padding:11px 6px;background:#f5f8f6;border-top:2px solid var(--green-border);border-radius:0 0 8px 8px;font-weight:600}
-    .unpub-month{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:var(--ink)}
+    .unpub-list-head{display:none}
+    .unpub-list{display:flex;align-items:stretch;gap:10px;padding:16px 14px 14px;overflow-x:auto;overflow-y:hidden}
+    .unpub-row{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:7px;min-width:78px;height:238px;padding:12px 8px 10px;border:1px solid #edf1ee;border-radius:10px;background:#fbfdfb;transition:background .12s,transform .12s}
+    .unpub-row:nth-child(even){background:#f7fbf8}
+    .unpub-row:hover{background:#f1f8f4;transform:translateY(-1px)}
+    .unpub-row.total-row{min-width:92px;background:#f3f8f5;border-color:var(--green-border);font-weight:600}
+    .unpub-month{display:inline-flex;align-items:center;justify-content:center;gap:5px;min-height:32px;text-align:center;font-size:13px;font-weight:600;color:var(--ink);line-height:1.25}
     .unpub-month-dot{width:7px;height:7px;border-radius:50%;background:var(--y26);flex-shrink:0}
-    .unpub-row-bar{display:flex;align-items:center;min-width:0}
-    .unpub-bar-track{flex:1;height:10px;background:#eef2ef;border-radius:999px;overflow:hidden;min-width:0}
-    .unpub-bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#6aab85,#1e5f74);min-width:2px}
-    .unpub-qty{text-align:right;font-size:14px;font-weight:700;color:var(--y26);font-variant-numeric:tabular-nums}
-    .unpub-pct{text-align:right;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+    .unpub-row-bar{display:flex;align-items:flex-end;justify-content:center;width:100%;height:122px;min-width:0}
+    .unpub-bar-track{display:flex;align-items:flex-end;justify-content:center;width:18px;height:116px;background:#edf2ef;border-radius:999px;overflow:hidden}
+    .unpub-bar-fill{width:100%;border-radius:999px;background:linear-gradient(180deg,#1e5f74,#6aab85);min-height:3px}
+    .unpub-qty{text-align:center;font-size:15px;font-weight:800;color:var(--y26);font-variant-numeric:tabular-nums;white-space:nowrap}
+    .unpub-pct{text-align:center;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
     .unpub-row.total-row .unpub-month-dot{background:var(--up)}
     .unpub-row.total-row .unpub-qty{color:var(--up)}
     .stat-banner .stat-main{font-size:22px;font-weight:700;color:var(--ink)}
@@ -238,7 +237,9 @@
       .publish-scene-grid .publish-panel{grid-column:auto}
       .overall-kpi-grid.cols-4,.overall-kpi-grid.cols-5,.july-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
       .mini-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-      .unpub-list-head,.unpub-row{grid-template-columns:64px 1fr 64px 48px;gap:8px;padding-left:10px;padding-right:10px}
+      .unpub-list{gap:8px;padding:14px 10px}
+      .unpub-row{min-width:68px;height:220px;padding-left:8px;padding-right:8px}
+      .unpub-row.total-row{min-width:78px}
       .section-nav{grid-template-columns:1fr}
       .section-nav::before{width:100%;margin-bottom:2px}
       .side-toc{display:none}
@@ -973,19 +974,19 @@ function renderUnpubList(id, rows){
     const pct=total?((r.val/total)*100).toFixed(1):"0.0";
     const barW=Math.max(3,Math.round((r.val/maxVal)*100));
     return`<div class="unpub-row">
-      <span class="unpub-month"><i class="unpub-month-dot"></i>${r.label}</span>
-      <div class="unpub-row-bar">
-        <div class="unpub-bar-track"><div class="unpub-bar-fill" style="width:${barW}%"></div></div>
-      </div>
       <span class="unpub-qty">${fmt(r.val)}</span>
       <span class="unpub-pct">${pct}%</span>
+      <div class="unpub-row-bar">
+        <div class="unpub-bar-track"><div class="unpub-bar-fill" style="height:${barW}%"></div></div>
+      </div>
+      <span class="unpub-month"><i class="unpub-month-dot"></i>${r.label}</span>
     </div>`;
   }).join("")+
   `<div class="unpub-row total-row">
-    <span class="unpub-month"><i class="unpub-month-dot"></i>合计</span>
-    <div class="unpub-row-bar"><div class="unpub-bar-track"><div class="unpub-bar-fill" style="width:100%;opacity:.4"></div></div></div>
     <span class="unpub-qty">${fmt(total)}</span>
     <span class="unpub-pct">100%</span>
+    <div class="unpub-row-bar"><div class="unpub-bar-track"><div class="unpub-bar-fill" style="height:100%;opacity:.4"></div></div></div>
+    <span class="unpub-month"><i class="unpub-month-dot"></i>合计</span>
   </div>`;
 }
 
