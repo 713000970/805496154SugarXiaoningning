@@ -323,13 +323,26 @@
 
     <div class="chart-grid-2">
       <div class="chart-panel">
-        <div class="chart-panel-title">① 定价维度占比</div>
+        <div class="chart-panel-title">① 当月定价维度占比</div>
+        <p class="chart-desc" style="margin:0 0 10px">6月 · 免费 · 3元以下 · 3-5元 · 5-10元 · 10-20元 · 20元以上</p>
+        <div id="chart-price-dist-month" class="chart"></div>
+      </div>
+      <div class="chart-panel">
+        <div class="chart-panel-title">② 当月定价分布变化</div>
+        <p class="chart-desc" style="margin:0 0 10px">6月各价位段占比变化（百分点）</p>
+        <div id="chart-price-dist-change-month" class="chart"></div>
+      </div>
+    </div>
+
+    <div class="chart-grid-2">
+      <div class="chart-panel">
+        <div class="chart-panel-title">③ 累计定价维度占比</div>
         <p class="chart-desc" style="margin:0 0 10px">免费 · 3元以下 · 3-5元 · 5-10元 · 10-20元 · 20元以上</p>
         <div id="chart-price-dist" class="chart"></div>
       </div>
       <div class="chart-panel">
-        <div class="chart-panel-title">② 定价分布变化</div>
-        <p class="chart-desc" style="margin:0 0 10px">各价位段占比变化（百分点）</p>
+        <div class="chart-panel-title">④ 累计定价分布变化</div>
+        <p class="chart-desc" style="margin:0 0 10px">1-6月各价位段占比变化（百分点）</p>
         <div id="chart-price-dist-change" class="chart"></div>
       </div>
     </div>
@@ -550,6 +563,7 @@
 const C25="#c45c26", C26="#1e5f74", CUP="#2d6a4f", CDOWN="#d94f4f";
 let DATA=null;
 let chartCollection=null, chartProduction=null, chartPriceGlobal=null, chartPriceDist=null, chartPriceDistChange=null;
+let chartPriceDistMonth=null, chartPriceDistChangeMonth=null;
 let chartPublish=null, chartScene=null, chartProvider=null, chartPriceProvider=null, chartJulyProvider=null, activeProvider=null;
 
 const fmt=n=>n>=10000?(n/10000).toFixed(1)+"万":n.toLocaleString("zh-CN");
@@ -957,6 +971,33 @@ function initSceneMonthToggle(){
   });
 }
 
+function renderPriceDistributionPair(chartA,chartB,pd){
+  chartA.setOption({
+    tooltip:{trigger:"axis"},
+    legend:{data:["2025","2026"],bottom:0},
+    grid:{left:50,right:20,top:20,bottom:50},
+    xAxis:{type:"category",data:pd.labels,axisLabel:{rotate:20,fontSize:11}},
+    yAxis:{type:"value",name:"占比%",max:100},
+    series:[
+      {name:"2025",type:"bar",data:pd.pct_2025,itemStyle:{color:C25},barMaxWidth:28,
+        label:{show:true,position:"top",formatter:"{c}%",fontSize:10}},
+      {name:"2026",type:"bar",data:pd.pct_2026,itemStyle:{color:C26},barMaxWidth:28,
+        label:{show:true,position:"top",formatter:"{c}%",fontSize:10}}
+    ]
+  },true);
+
+  const delta=pd.labels.map((_,i)=>+(pd.pct_2026[i]-pd.pct_2025[i]).toFixed(1));
+  chartB.setOption({
+    tooltip:{trigger:"axis",formatter:p=>`${p[0].name}<br/>变化：${p[0].value>0?"+":""}${p[0].value} pct`},
+    grid:{left:50,right:20,top:20,bottom:50},
+    xAxis:{type:"category",data:pd.labels,axisLabel:{rotate:20,fontSize:11}},
+    yAxis:{type:"value",name:"百分点"},
+    series:[{type:"bar",data:delta,barMaxWidth:32,
+      itemStyle:{color:p=>p.value>=0?CUP:CDOWN},
+      label:{show:true,position:"top",formatter:p=>(p.value>0?"+":"")+p.value+"%",fontSize:10}}]
+  },true);
+}
+
 function renderOverallCharts(){
   const o=DATA.overall;
   if(!chartCollection) chartCollection=echarts.init(document.getElementById("chart-collection"));
@@ -964,6 +1005,8 @@ function renderOverallCharts(){
   if(!chartPublish) chartPublish=echarts.init(document.getElementById("chart-publish"));
   if(!chartPriceDist) chartPriceDist=echarts.init(document.getElementById("chart-price-dist"));
   if(!chartPriceDistChange) chartPriceDistChange=echarts.init(document.getElementById("chart-price-dist-change"));
+  if(!chartPriceDistMonth) chartPriceDistMonth=echarts.init(document.getElementById("chart-price-dist-month"));
+  if(!chartPriceDistChangeMonth) chartPriceDistChangeMonth=echarts.init(document.getElementById("chart-price-dist-change-month"));
 
   const collOpt=volumeComboChartOption(null,seriesToRows(o.collection.monthly));
   collOpt.yAxis[0].name="征集量";
@@ -979,31 +1022,9 @@ function renderOverallCharts(){
 
   renderSceneChart(sceneMonthMode);
 
-  const pd=o.production.price_distribution;
-  chartPriceDist.setOption({
-    tooltip:{trigger:"axis"},
-    legend:{data:["2025","2026"],bottom:0},
-    grid:{left:50,right:20,top:20,bottom:50},
-    xAxis:{type:"category",data:pd.labels,axisLabel:{rotate:20,fontSize:11}},
-    yAxis:{type:"value",name:"占比%",max:100},
-    series:[
-      {name:"2025",type:"bar",data:pd.pct_2025,itemStyle:{color:C25},barMaxWidth:28,
-        label:{show:true,position:"top",formatter:"{c}%",fontSize:10}},
-      {name:"2026",type:"bar",data:pd.pct_2026,itemStyle:{color:C26},barMaxWidth:28,
-        label:{show:true,position:"top",formatter:"{c}%",fontSize:10}}
-    ]
-  },true);
-
-  const delta=pd.labels.map((_,i)=>+(pd.pct_2026[i]-pd.pct_2025[i]).toFixed(1));
-  chartPriceDistChange.setOption({
-    tooltip:{trigger:"axis",formatter:p=>`${p[0].name}<br/>变化：${p[0].value>0?"+":""}${p[0].value} pct`},
-    grid:{left:50,right:20,top:20,bottom:50},
-    xAxis:{type:"category",data:pd.labels,axisLabel:{rotate:20,fontSize:11}},
-    yAxis:{type:"value",name:"百分点"},
-    series:[{type:"bar",data:delta,barMaxWidth:32,
-      itemStyle:{color:p=>p.value>=0?CUP:CDOWN},
-      label:{show:true,position:"top",formatter:p=>(p.value>0?"+":"")+p.value+"%",fontSize:10}}]
-  },true);
+  const monthPd=o.production.monthly_price_distribution?.["06"]||o.production.price_distribution;
+  renderPriceDistributionPair(chartPriceDistMonth,chartPriceDistChangeMonth,monthPd);
+  renderPriceDistributionPair(chartPriceDist,chartPriceDistChange,o.production.price_distribution);
 }
 
 function renderOverall(){
@@ -1376,7 +1397,7 @@ function initProviderOverviewSearch(){
 }
 window.addEventListener("resize",()=>{
   chartCollection?.resize();chartProduction?.resize();chartPriceGlobal?.resize();
-  chartPriceDist?.resize();chartPriceDistChange?.resize();chartPublish?.resize();chartScene?.resize();
+  chartPriceDist?.resize();chartPriceDistChange?.resize();chartPriceDistMonth?.resize();chartPriceDistChangeMonth?.resize();chartPublish?.resize();chartScene?.resize();
   chartProvider?.resize();chartPriceProvider?.resize();chartJulyProvider?.resize();
 });
 load().catch(e=>{document.querySelector(".wrap").innerHTML=`<div style="padding:60px;text-align:center"><h2>加载失败</h2><p>${e.message}</p><p style="margin-top:12px">运行 python scripts/process_data.py 后刷新</p></div>`});
