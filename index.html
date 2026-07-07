@@ -274,7 +274,7 @@
     <a class="toc-sub" href="#production-anchor">资料生产</a>
     <a class="toc-sub" href="#price-anchor">资料定价</a>
     <a class="toc-sub" href="#publish-anchor">资料发布</a>
-    <a class="toc-sub" href="#unpub-anchor">待发布资源分布</a>
+    <a class="toc-sub" href="#unpub-anchor">待发布资源盘点</a>
     <div class="toc-divider"></div>
     <a class="toc-main" href="#provider-anchor">具体店铺分析</a>
     <a class="toc-sub" href="#provider-overview-anchor">全部店铺概览</a>
@@ -412,11 +412,11 @@
       </div>
     </div>
 
-    <div class="block-title" id="unpub-anchor">（5）待发布资源分布</div>
+    <div class="block-title" id="unpub-anchor">（5）待发布资源盘点</div>
     <div class="unpub-panel">
       <div class="unpub-panel-head">
         <div>
-          <div class="unpub-panel-title">待发布资源分布</div>
+          <div class="unpub-panel-title">待发布资源盘点</div>
           <p class="unpub-panel-note" id="unpub-schedule-note"></p>
         </div>
         <div class="unpub-head-right">
@@ -437,6 +437,7 @@
           </div>
         </div>
       </div>
+      <div class="unpub-panel-title" style="margin:4px 0 10px">① 待发布资源上传月份分布</div>
       <div class="unpub-table-wrap">
         <div class="unpub-list-head">
           <span>上传月份</span>
@@ -444,7 +445,18 @@
           <span>数量</span>
           <span>占比</span>
         </div>
-        <div class="unpub-list" id="unpub-schedule-list"></div>
+        <div class="unpub-list" id="unpub-upload-list"></div>
+      </div>
+
+      <div class="unpub-panel-title" style="margin:18px 0 10px">② 待发布资源发布月份分布</div>
+      <div class="unpub-table-wrap">
+        <div class="unpub-list-head">
+          <span>发布月份</span>
+          <span>分布</span>
+          <span>数量</span>
+          <span>占比</span>
+        </div>
+        <div class="unpub-list" id="unpub-release-list"></div>
       </div>
     </div>
   </div>
@@ -937,7 +949,7 @@ function renderUnpubScheduleTable(){
   const cumulativeView=prodRow?.cumulative_view||{};
   if(!d) return;
   document.getElementById("unpub-schedule-note").textContent=
-    "待发布资源 · 按上传月份统计；上方本月/累计数据与下方分布表同口径";
+    "待发布资源 · 上传月份按本月/累计口径统计；发布月份按 min_online_time 排期统计";
   document.getElementById("unpub-current-month").textContent=fmt(monthView.unpublished_2026||0);
   document.getElementById("unpub-cumulative").textContent=fmt(cumulativeView.unpublished_2026||0);
   const labels=uploadDist.labels||[];
@@ -947,8 +959,16 @@ function renderUnpubScheduleTable(){
   const peak=rows.reduce((a,b)=>b.val>a.val?b:a,rows[0]||{label:"—",val:0});
   document.getElementById("unpub-schedule-peak").textContent=peak.label;
   document.getElementById("unpub-schedule-peak-val").textContent=`${fmt(peak.val)} 份`;
-  const maxVal=Math.max(...values,1);
-  const list=document.getElementById("unpub-schedule-list");
+  renderUnpubList("unpub-upload-list", rows);
+  const releaseRows=(d.labels||[]).map((label,i)=>({label,val:Number(d.values?.[i])||0}));
+  renderUnpubList("unpub-release-list", releaseRows);
+}
+
+function renderUnpubList(id, rows){
+  const total=rows.reduce((sum,r)=>sum+(Number(r.val)||0),0);
+  const maxVal=Math.max(...rows.map(r=>r.val),1);
+  const list=document.getElementById(id);
+  if(!list) return;
   list.innerHTML=rows.map(r=>{
     const pct=total?((r.val/total)*100).toFixed(1):"0.0";
     const barW=Math.max(3,Math.round((r.val/maxVal)*100));
