@@ -102,6 +102,9 @@
     .prov-kpi-row .val{font-variant-numeric:tabular-nums;font-weight:600}
     .prov-kpi-yoy{text-align:center;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
     .chart-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:24px}
+    .publish-scene-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;gap:18px;margin-bottom:24px}
+    .publish-scene-grid .publish-panel{grid-row:1 / span 2}
+    .publish-scene-grid .scene-table-panel{padding-top:12px}
     .chart-panel{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:16px}
     .chart-panel-title{font-size:14px;font-weight:600;margin-bottom:4px}
     .tables-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:24px}
@@ -210,6 +213,11 @@
     .mini-kpi-foot{font-size:12px;color:#666;margin-top:6px}
     .scene-share-table{margin-top:14px}
     .scene-share-table .compare-table tbody td:first-child{min-width:120px}
+    .provider-insight-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+    .provider-insight-panel{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:16px;overflow:hidden}
+    .provider-insight-title{font-size:14px;font-weight:700;margin-bottom:10px}
+    .provider-insight-title.up{color:var(--up)}
+    .provider-insight-title.down{color:var(--down)}
     .july-kpi-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:18px}
     .july-kpi-card{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:16px;text-align:center}
     .july-kpi-label{font-size:12px;color:var(--muted);margin-bottom:8px}
@@ -226,6 +234,8 @@
       .kpi-grid{grid-template-columns:1fr}
       .provider-kpi-grid{grid-template-columns:1fr}
       .chart-grid-2,.tables-grid-2{grid-template-columns:1fr}
+      .publish-scene-grid,.provider-insight-grid{grid-template-columns:1fr}
+      .publish-scene-grid .publish-panel{grid-row:auto}
       .overall-kpi-grid.cols-4,.overall-kpi-grid.cols-5,.july-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
       .mini-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
       .unpub-list-head,.unpub-row{grid-template-columns:64px 1fr 64px 48px;gap:8px;padding-left:10px;padding-right:10px}
@@ -358,8 +368,8 @@
     <div class="block-title" id="publish-anchor">（4）资料发布</div>
     <div class="stat-banner" id="stat-publish-month"></div>
     <div class="stat-banner stat-banner-cum" id="stat-publish-cumulative"></div>
-    <div class="chart-grid-2">
-      <div class="chart-panel">
+    <div class="publish-scene-grid">
+      <div class="chart-panel publish-panel">
         <div class="chart-panel-title">发布总量对比</div>
         <p class="chart-desc" style="margin:0 0 10px">2025 / 2026 发布量 · 虚线同比</p>
         <div class="legend"><span><i class="dot y25"></i>2025</span><span><i class="dot y26"></i>2026</span></div>
@@ -382,6 +392,9 @@
           </div>
         </div>
         <div id="chart-scene" class="chart"></div>
+      </div>
+      <div class="chart-panel scene-table-panel">
+        <div class="chart-panel-title">主要场景占比 / 同比</div>
         <div class="scene-share-table table-wrap compare">
           <table id="table-scene-share" class="compare-table">
             <thead>
@@ -487,7 +500,7 @@
         <input type="search" id="search-provider" placeholder="搜索店铺名称…" />
       </div>
     </div>
-    <div class="mini-kpi-grid" id="provider-overall-kpis"></div>
+    <div class="provider-insight-grid" id="provider-overall-kpis"></div>
     <div class="section-title" style="font-size:15px;margin:4px 0 12px">全部店铺概览</div>
     <div class="table-wrap compare">
       <table id="table-providers" class="compare-table">
@@ -1272,27 +1285,32 @@ function renderProviderTable(filter=""){
 
 function renderProviderOverall(){
   const rows=DATA.providers||[];
-  const sum=(year,key)=>rows.reduce((acc,p)=>acc+(Number(p.totals?.[year]?.[key])||0),0);
-  const res25=sum("2025","res_count"), res26=sum("2026","res_count");
-  const book25=sum("2025","book_count"), book26=sum("2026","book_count");
-  const price25Rows=rows.filter(p=>Number(p.totals?.["2025"]?.avg_price)>0);
-  const price26Rows=rows.filter(p=>Number(p.totals?.["2026"]?.avg_price)>0);
-  const avg=(arr,year)=>arr.length?+(arr.reduce((a,p)=>a+Number(p.totals?.[year]?.avg_price||0),0)/arr.length).toFixed(2):0;
-  const avg25=avg(price25Rows,"2025"), avg26=avg(price26Rows,"2026");
-  const active25=rows.filter(p=>Number(p.totals?.["2025"]?.res_count)>0).length;
-  const active26=rows.filter(p=>Number(p.totals?.["2026"]?.res_count)>0).length;
-  const items=[
-    ["活跃店铺",active26,"家",active25,yoy(active26,active25)],
-    ["发布数据",res26,"份",res25,yoy(res26,res25)],
-    ["书籍数",book26,"本",book25,yoy(book26,book25)],
-    ["店铺均价",avg26,"元",avg25,yoy(avg26,avg25)]
-  ];
-  document.getElementById("provider-overall-kpis").innerHTML=items.map(([title,val,unit,base,y])=>`
-    <div class="mini-kpi-card">
-      <div class="mini-kpi-title">${title}</div>
-      <div class="mini-kpi-value">${fmt(val)}<span class="unit">${unit}</span></div>
-      <div class="mini-kpi-foot">2025 ${fmt(base)}${unit} · 同比 ${yoyHtml(y)}</div>
-    </div>`).join("");
+  const changes=rows.map(p=>{
+    const a=Number(p.totals?.["2025"]?.res_count)||0;
+    const b=Number(p.totals?.["2026"]?.res_count)||0;
+    return {provider:p.provider,v25:a,v26:b,delta:b-a,yoyPct:yoy(b,a)};
+  }).filter(r=>r.v25||r.v26);
+  const up=changes.filter(r=>r.delta>0).sort((a,b)=>b.delta-a.delta).slice(0,8);
+  const down=changes.filter(r=>r.delta<0).sort((a,b)=>a.delta-b.delta).slice(0,8);
+  const table=(list,empty)=>list.length?`<table class="compare-table">
+    <thead><tr><th>店铺</th><th class="col-25">2025</th><th class="col-26">2026</th><th>增减</th><th class="col-yoy">同比</th></tr></thead>
+    <tbody>${list.map(r=>`<tr>
+      <td>${r.provider}</td>
+      <td class="col-25">${fmt(r.v25)}</td>
+      <td class="col-26">${fmt(r.v26)}</td>
+      <td>${r.delta>0?"+":""}${fmt(r.delta)}</td>
+      <td class="col-yoy">${yoyHtml(r.yoyPct)}</td>
+    </tr>`).join("")}</tbody>
+  </table>`:`<div class="provider-empty">${empty}</div>`;
+  document.getElementById("provider-overall-kpis").innerHTML=`
+    <div class="provider-insight-panel">
+      <div class="provider-insight-title up">生产/发布变多店铺 Top</div>
+      <div class="table-wrap compare" style="max-height:340px">${table(up,"暂无增长店铺")}</div>
+    </div>
+    <div class="provider-insight-panel">
+      <div class="provider-insight-title down">生产/发布变少店铺 Top</div>
+      <div class="table-wrap compare" style="max-height:340px">${table(down,"暂无下降店铺")}</div>
+    </div>`;
 }
 
 function renderProviderSummary(p){
