@@ -215,6 +215,10 @@
     .provider-insight-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
     .provider-insight-panel{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:16px;overflow:hidden}
     .provider-insight-title{font-size:14px;font-weight:700;margin-bottom:10px}
+    .provider-period-switch{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+    .provider-period-btn{border:1px solid var(--line);background:#fff;color:#555;border-radius:7px;padding:7px 10px;font-size:12px;font-family:inherit;cursor:pointer;line-height:1}
+    .provider-period-btn:hover{background:#f3f8f5;color:var(--up)}
+    .provider-period-btn.active{background:var(--up);border-color:var(--up);color:#fff;font-weight:700}
     .provider-insight-title.up{color:var(--up)}
     .provider-insight-title.down{color:var(--down)}
     .july-kpi-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:18px}
@@ -510,6 +514,15 @@
     <div class="section-head">
       <div class="section-title">具体店铺整体分析</div>
       <div class="toolbar">
+        <div class="provider-period-switch" id="provider-period-switch">
+          <button class="provider-period-btn active" data-provider-period="total">累计</button>
+          <button class="provider-period-btn" data-provider-period="01">1月</button>
+          <button class="provider-period-btn" data-provider-period="02">2月</button>
+          <button class="provider-period-btn" data-provider-period="03">3月</button>
+          <button class="provider-period-btn" data-provider-period="04">4月</button>
+          <button class="provider-period-btn" data-provider-period="05">5月</button>
+          <button class="provider-period-btn" data-provider-period="06">6月</button>
+        </div>
         <input type="search" id="search-provider" placeholder="搜索店铺名称…" />
       </div>
     </div>
@@ -615,6 +628,7 @@ let DATA=null;
 let chartCollection=null, chartProduction=null, chartPriceGlobal=null, chartPriceDist=null, chartPriceDistChange=null;
 let chartPriceDistMonth=null, chartPriceDistChangeMonth=null;
 let chartPublish=null, chartScene=null, chartProvider=null, chartPriceProvider=null, chartJulyProvider=null, activeProvider=null;
+let providerOverallPeriod="total";
 
 const fmt=n=>n>=10000?(n/10000).toFixed(1)+"万":n.toLocaleString("zh-CN");
 const fmtExact=n=>Number(n).toLocaleString("zh-CN");
@@ -1271,6 +1285,7 @@ async function load(){
   renderOverall();
   renderJulySection();
   renderPriceChartGlobal();
+  initProviderPeriodSwitch();
   renderProviderOverall();
   renderProviderTable();
   initProviderOverviewSearch();
@@ -1285,6 +1300,19 @@ function renderHeader(){
     DATA.data_sources.files.map(f=>`<span class="tag">${f.file}</span>`).join("");
   document.getElementById("rules").innerHTML=
     `征集 = ${s.rules.book} · 生产 = ${s.rules.production} · 发布 = ${s.rules.publish} · 品牌 = ${s.rules.brand}`;
+}
+
+function initProviderPeriodSwitch(){
+  const wrap=document.getElementById("provider-period-switch");
+  if(!wrap||wrap.dataset.bound) return;
+  wrap.dataset.bound="1";
+  wrap.querySelectorAll("[data-provider-period]").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      providerOverallPeriod=btn.dataset.providerPeriod;
+      wrap.querySelectorAll("[data-provider-period]").forEach(b=>b.classList.toggle("active",b===btn));
+      renderProviderOverall();
+    });
+  });
 }
 
 function renderProviderTable(filter=""){
@@ -1306,9 +1334,17 @@ function renderProviderTable(filter=""){
 
 function renderProviderOverall(){
   const rows=DATA.providers||[];
+  const period=providerOverallPeriod||"total";
+  const periodLabel=period==="total"?"1-6月累计":`${parseInt(period,10)}月`;
+  const providerVal=(p,year)=>{
+    if(period==="total") return Number(p.totals?.[year]?.res_count)||0;
+    const monthly=buildMonthlyYoY(p.monthly||{months:[],"2025":[],"2026":[]});
+    const row=monthly.find(d=>d.mm===period);
+    return Number(year==="2025"?row?.v25:row?.v26)||0;
+  };
   const changes=rows.map(p=>{
-    const a=Number(p.totals?.["2025"]?.res_count)||0;
-    const b=Number(p.totals?.["2026"]?.res_count)||0;
+    const a=providerVal(p,"2025");
+    const b=providerVal(p,"2026");
     return {provider:p.provider,v25:a,v26:b,delta:b-a,yoyPct:yoy(b,a)};
   }).filter(r=>r.v25||r.v26);
   const up=changes.filter(r=>r.delta>0).sort((a,b)=>b.delta-a.delta).slice(0,8);
@@ -1325,11 +1361,11 @@ function renderProviderOverall(){
   </table>`:`<div class="provider-empty">${empty}</div>`;
   document.getElementById("provider-overall-kpis").innerHTML=`
     <div class="provider-insight-panel">
-      <div class="provider-insight-title up">生产/发布变多店铺 Top</div>
+      <div class="provider-insight-title up">${periodLabel} · 生产/发布变多店铺 Top</div>
       <div class="table-wrap compare" style="max-height:340px">${table(up,"暂无增长店铺")}</div>
     </div>
     <div class="provider-insight-panel">
-      <div class="provider-insight-title down">生产/发布变少店铺 Top</div>
+      <div class="provider-insight-title down">${periodLabel} · 生产/发布变少店铺 Top</div>
       <div class="table-wrap compare" style="max-height:340px">${table(down,"暂无下降店铺")}</div>
     </div>`;
 }
