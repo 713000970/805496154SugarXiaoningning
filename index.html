@@ -1311,8 +1311,32 @@ function initProviderPeriodSwitch(){
       providerOverallPeriod=btn.dataset.providerPeriod;
       wrap.querySelectorAll("[data-provider-period]").forEach(b=>b.classList.toggle("active",b===btn));
       renderProviderOverall();
+      renderProviderTable(document.getElementById("search-provider")?.value||"");
     });
   });
+}
+
+function providerPeriodMetrics(p){
+  if(providerOverallPeriod==="total"){
+    return {a:p.totals["2025"], b:p.totals["2026"]};
+  }
+  const upload=buildMonthlyYoY(p.monthly||{months:[],"2025":[],"2026":[]}).find(d=>d.mm===providerOverallPeriod)||{v25:0,v26:0};
+  const idx=(p.monthly_books?.labels||[]).findIndex(label=>parseInt(label,10)===parseInt(providerOverallPeriod,10));
+  const priceIdx=(p.monthly_price?.labels||[]).findIndex(label=>parseInt(label,10)===parseInt(providerOverallPeriod,10));
+  const aPrice=priceIdx>=0?p.monthly_price?.["2025"]?.[priceIdx]:null;
+  const bPrice=priceIdx>=0?p.monthly_price?.["2026"]?.[priceIdx]:null;
+  return {
+    a:{
+      res_count:upload.v25||0,
+      book_count:idx>=0?(Number(p.monthly_books?.["2025"]?.[idx])||0):0,
+      avg_price:aPrice==null?0:aPrice
+    },
+    b:{
+      res_count:upload.v26||0,
+      book_count:idx>=0?(Number(p.monthly_books?.["2026"]?.[idx])||0):0,
+      avg_price:bPrice==null?0:bPrice
+    }
+  };
 }
 
 function renderProviderTable(filter=""){
@@ -1320,7 +1344,7 @@ function renderProviderTable(filter=""){
   const q=filter.trim().toLowerCase();
   const rows=DATA.providers.filter(p=>!q||p.provider.toLowerCase().includes(q));
   tb.innerHTML=rows.map(p=>{
-    const a=p.totals["2025"], b=p.totals["2026"];
+    const {a,b}=providerPeriodMetrics(p);
     const ry=yoy(b.res_count,a.res_count), rb=yoy(b.book_count,a.book_count), rp=yoy(b.avg_price,a.avg_price);
     const active=p.provider===activeProvider?"active":"";
     return`<tr class="${active}" data-prov="${encodeURIComponent(p.provider)}" style="cursor:pointer">
