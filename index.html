@@ -303,7 +303,7 @@
     </div>
     <div class="overall-sub-head">
       <div class="sub-head-text">
-        <div class="block-title" style="margin-top:0" id="overall-view-title">当月数据（6月）</div>
+        <div class="block-title" style="margin-top:0" id="overall-view-title">当月数据（7月）</div>
         <p class="chart-desc" id="overall-view-note" style="margin-bottom:0"></p>
       </div>
       <div class="view-toggle" role="tablist">
@@ -316,7 +316,8 @@
         <button type="button" class="view-toggle-btn" data-overall-mm="03" role="tab">3月</button>
         <button type="button" class="view-toggle-btn" data-overall-mm="04" role="tab">4月</button>
         <button type="button" class="view-toggle-btn" data-overall-mm="05" role="tab">5月</button>
-        <button type="button" class="view-toggle-btn active" data-overall-mm="06" role="tab" aria-selected="true">6月</button>
+        <button type="button" class="view-toggle-btn" data-overall-mm="06" role="tab">6月</button>
+        <button type="button" class="view-toggle-btn active" data-overall-mm="07" role="tab" aria-selected="true">7月</button>
       </div>
     </div>
     <div class="overall-kpi-grid" id="overall-kpi-grid"></div>
@@ -347,12 +348,12 @@
     <div class="chart-grid-2">
       <div class="chart-panel">
         <div class="chart-panel-title">定价维度占比 · 当月</div>
-        <p class="chart-desc" style="margin:0 0 10px">6月 · 免费 · 3元以下 · 3-5元 · 5-10元 · 10-20元 · 20元以上</p>
+        <p class="chart-desc" style="margin:0 0 10px">7月 · 免费 · 3元以下 · 3-5元 · 5-10元 · 10-20元 · 20元以上</p>
         <div id="chart-price-dist-month" class="chart"></div>
       </div>
       <div class="chart-panel">
         <div class="chart-panel-title">定价维度占比 · 累计</div>
-        <p class="chart-desc" style="margin:0 0 10px">1-6月 · 免费 · 3元以下 · 3-5元 · 5-10元 · 10-20元 · 20元以上</p>
+        <p class="chart-desc" style="margin:0 0 10px">1-7月 · 免费 · 3元以下 · 3-5元 · 5-10元 · 10-20元 · 20元以上</p>
         <div id="chart-price-dist" class="chart"></div>
       </div>
     </div>
@@ -360,12 +361,12 @@
     <div class="chart-grid-2">
       <div class="chart-panel">
         <div class="chart-panel-title">定价分布变化 · 当月</div>
-        <p class="chart-desc" style="margin:0 0 10px">6月各价位段占比变化（百分点）</p>
+        <p class="chart-desc" style="margin:0 0 10px">7月各价位段占比变化（百分点）</p>
         <div id="chart-price-dist-change-month" class="chart"></div>
       </div>
       <div class="chart-panel">
         <div class="chart-panel-title">定价分布变化 · 累计</div>
-        <p class="chart-desc" style="margin:0 0 10px">1-6月各价位段占比变化（百分点）</p>
+        <p class="chart-desc" style="margin:0 0 10px">1-7月各价位段占比变化（百分点）</p>
         <div id="chart-price-dist-change" class="chart"></div>
       </div>
     </div>
@@ -384,7 +385,7 @@
         <div class="scene-panel-head">
           <div>
             <div class="chart-panel-title">场景分布</div>
-            <p class="chart-desc" style="margin:0" id="scene-chart-desc">一级场景 Top10 · 2025 / 2026 · <span id="scene-month-label">6月</span></p>
+            <p class="chart-desc" style="margin:0" id="scene-chart-desc">一级场景 Top10 · 2025 / 2026 · <span id="scene-month-label">7月</span></p>
           </div>
           <div class="view-toggle scene-month-toggle" id="scene-month-toggle" role="tablist">
             <button type="button" class="view-toggle-btn" data-mm="01" role="tab">1月</button>
@@ -392,7 +393,8 @@
             <button type="button" class="view-toggle-btn" data-mm="03" role="tab">3月</button>
             <button type="button" class="view-toggle-btn" data-mm="04" role="tab">4月</button>
             <button type="button" class="view-toggle-btn" data-mm="05" role="tab">5月</button>
-            <button type="button" class="view-toggle-btn active" data-mm="06" role="tab" aria-selected="true">6月</button>
+            <button type="button" class="view-toggle-btn" data-mm="06" role="tab">6月</button>
+            <button type="button" class="view-toggle-btn active" data-mm="07" role="tab" aria-selected="true">7月</button>
             <button type="button" class="view-toggle-btn" data-mm="cumulative" role="tab">累计</button>
           </div>
         </div>
@@ -436,7 +438,7 @@
             <div class="chip-unit">份</div>
           </div>
           <div class="unpub-total-chip">
-            <div class="chip-label">1-6月上传待发布</div>
+            <div class="chip-label">1-7月上传待发布</div>
             <div class="chip-val" id="unpub-cumulative">—</div>
             <div class="chip-unit">份</div>
           </div>
@@ -522,13 +524,14 @@
           <button class="provider-period-btn" data-provider-period="04">4月</button>
           <button class="provider-period-btn" data-provider-period="05">5月</button>
           <button class="provider-period-btn" data-provider-period="06">6月</button>
+          <button class="provider-period-btn" data-provider-period="07">7月</button>
         </div>
         <input type="search" id="search-provider" placeholder="搜索店铺名称…" />
       </div>
     </div>
     <div class="provider-insight-grid" id="provider-overall-kpis"></div>
     <div class="section-head" style="margin:4px 0 12px">
-      <div class="section-title" id="provider-table-title" style="font-size:15px">全部店铺概览 · 1-6月累计</div>
+      <div class="section-title" id="provider-table-title" style="font-size:15px">全部店铺概览 · 1-7月累计</div>
       <div class="provider-period-switch" id="provider-table-period-switch">
         <button class="provider-period-btn active" data-provider-period="total">累计</button>
         <button class="provider-period-btn" data-provider-period="01">1月</button>
@@ -537,6 +540,7 @@
         <button class="provider-period-btn" data-provider-period="04">4月</button>
         <button class="provider-period-btn" data-provider-period="05">5月</button>
         <button class="provider-period-btn" data-provider-period="06">6月</button>
+        <button class="provider-period-btn" data-provider-period="07">7月</button>
       </div>
     </div>
     <div class="table-wrap compare">
@@ -832,14 +836,14 @@ const OVERALL_VIEWS={
   },
   cumulative:{
     key:"cumulative_view",
-    title:"年度累计数据（1-6月）",
-    col25:"2025年1-6月",
-    col26:"2026年1-6月",
+    title:"年度累计数据（1-7月）",
+    col25:"2025年1-7月",
+    col26:"2026年1-7月",
     noteKey:"cumulative"
   }
 };
 let overallViewMode="month";
-let overallMonth="06";
+let overallMonth="07";
 
 function metricShortName(metric){
   return metric.replace(/（[^）]+）/,"");
@@ -903,7 +907,7 @@ function setOverallView(mode){
   const monthLabel=`${parseInt(overallMonth,10)}月`;
   document.getElementById("overall-view-title").textContent=mode==="month"?`月度数据（${monthLabel}）`:cfg.title;
   document.getElementById("overall-view-note").textContent=
-    notes[cfg.noteKey]||(mode==="month"?`月度口径：2025年${monthLabel} vs 2026年${monthLabel}`:"累计口径：2025年1-6月 vs 2026年1-6月");
+    notes[cfg.noteKey]||(mode==="month"?`月度口径：2025年${monthLabel} vs 2026年${monthLabel}`:"累计口径：2025年1-7月 vs 2026年1-7月");
   const monthToggle=document.getElementById("overall-month-toggle");
   if(monthToggle) monthToggle.style.display=mode==="month"?"flex":"none";
   document.querySelectorAll("[data-view]").forEach(btn=>{
@@ -942,9 +946,9 @@ function renderOverallStats(){
   const pc=prodRow?.cumulative_view||{};
 
   document.getElementById("stat-collection-month").innerHTML=statBannerPeriod(
-    "6月当月","month","图书征集",c.month_2026??c.may_2026,c.month_2025??c.may_2025,"本",c.yoy_month??c.yoy_may);
+    "7月当月","month","图书征集",c.month_2026??c.may_2026,c.month_2025??c.may_2025,"本",c.yoy_month??c.yoy_may);
   document.getElementById("stat-collection-cumulative").innerHTML=statBannerPeriod(
-    "1-6月累计","cum","图书征集",c.total_2026_period,c.total_2025_period,"本",c.yoy,
+    "1-7月累计","cum","图书征集",c.total_2026_period,c.total_2025_period,"本",c.yoy,
     `2025全年参考 ${fmt(c.total_2025_full)} 本`);
 
   const prodMonthExtra=pm.published_2026!=null
@@ -952,14 +956,14 @@ function renderOverallStats(){
   const prodCumExtra=pc.published_2026!=null
     ?`已发布 ${fmt(pc.published_2026)} · 待发布 ${fmt(pc.unpublished_2026)}`:"";
   document.getElementById("stat-production-month").innerHTML=statBannerPeriod(
-    "6月当月","month","资料生产",p.month_2026??p.may_2026,p.month_2025??p.may_2025,"份",p.yoy_month??p.yoy_may,prodMonthExtra);
+    "7月当月","month","资料生产",p.month_2026??p.may_2026,p.month_2025??p.may_2025,"份",p.yoy_month??p.yoy_may,prodMonthExtra);
   document.getElementById("stat-production-cumulative").innerHTML=statBannerPeriod(
-    "1-6月累计","cum","资料生产",p.total_2026_period,p.total_2025_period,"份",p.yoy,prodCumExtra);
+    "1-7月累计","cum","资料生产",p.total_2026_period,p.total_2025_period,"份",p.yoy,prodCumExtra);
 
   document.getElementById("stat-publish-month").innerHTML=statBannerPeriod(
-    "6月当月","month","资料发布",u.month_2026??u.may_2026,u.month_2025??u.may_2025,"份",u.yoy_month??u.yoy_may);
+    "7月当月","month","资料发布",u.month_2026??u.may_2026,u.month_2025??u.may_2025,"份",u.yoy_month??u.yoy_may);
   document.getElementById("stat-publish-cumulative").innerHTML=statBannerPeriod(
-    "1-6月累计","cum","资料发布",u.total_2026_period,u.total_2025_period,"份",u.yoy);
+    "1-7月累计","cum","资料发布",u.total_2026_period,u.total_2025_period,"份",u.yoy);
 
   document.getElementById("stat-collection-desc").textContent="分月对比 · 各月征集量 · 虚线为当月同比";
   document.getElementById("stat-production-desc").textContent="分月对比 · 各月生产量 · 虚线为当月同比";
@@ -1015,7 +1019,7 @@ function renderUnpubList(id, rows){
   </div>`;
 }
 
-let sceneMonthMode="06";
+let sceneMonthMode="07";
 
 function renderSceneChart(mm=sceneMonthMode){
   const sm=DATA.overall.publish.scenes_monthly;
@@ -1354,7 +1358,7 @@ function renderProviderTable(filter=""){
   const tb=document.querySelector("#table-providers tbody");
   const title=document.getElementById("provider-table-title");
   if(title){
-    const periodLabel=providerOverallPeriod==="total"?"1-6月累计":`${parseInt(providerOverallPeriod,10)}月`;
+    const periodLabel=providerOverallPeriod==="total"?"1-7月累计":`${parseInt(providerOverallPeriod,10)}月`;
     title.textContent=`全部店铺概览 · ${periodLabel}`;
   }
   const head25=providerOverallPeriod==="total"?"2025累计":`2025 ${parseInt(providerOverallPeriod,10)}月`;
@@ -1379,7 +1383,7 @@ function renderProviderTable(filter=""){
 function renderProviderOverall(){
   const rows=DATA.providers||[];
   const period=providerOverallPeriod||"total";
-  const periodLabel=period==="total"?"1-6月累计":`${parseInt(period,10)}月`;
+  const periodLabel=period==="total"?"1-7月累计":`${parseInt(period,10)}月`;
   const providerVal=(p,year)=>{
     if(period==="total") return Number(p.totals?.[year]?.res_count)||0;
     const monthly=buildMonthlyYoY(p.monthly||{months:[],"2025":[],"2026":[]});
