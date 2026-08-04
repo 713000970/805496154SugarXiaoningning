@@ -2,7 +2,7 @@
   "summary": {
     "period": "2026年1-7月 · 全场景",
     "compare_period": "2025 vs 2026 · 教辅店铺 · 1-7月",
-    "generated_at": "2026-08-04 11:48",
+    "generated_at": "2026-08-04 14:21",
     "rules": {
       "brand": "res_title 中【】内文字",
       "book": "album_ids/album_id 去重计数",
@@ -40,8 +40,8 @@
           "v2025_note": "2025年1月",
           "v2026_note": "2026年1月",
           "published_2025_all": true,
-          "published_2026": 41958,
-          "unpublished_2026": 1261,
+          "published_2026": 43219,
+          "unpublished_2026": 0,
           "yoy": 96.7,
           "analysis": "1月生产同比明显增长（+96.7%）"
         },
@@ -77,8 +77,8 @@
           "v2025_note": "2025年2月",
           "v2026_note": "2026年2月",
           "published_2025_all": true,
-          "published_2026": 50484,
-          "unpublished_2026": 461,
+          "published_2026": 50945,
+          "unpublished_2026": 0,
           "yoy": 17.8,
           "analysis": "2月生产同比明显增长（+17.8%）"
         },
@@ -114,8 +114,8 @@
           "v2025_note": "2025年3月",
           "v2026_note": "2026年3月",
           "published_2025_all": true,
-          "published_2026": 89612,
-          "unpublished_2026": 2362,
+          "published_2026": 91069,
+          "unpublished_2026": 905,
           "yoy": 20.2,
           "analysis": "3月生产同比明显增长（+20.2%）"
         },
@@ -151,8 +151,8 @@
           "v2025_note": "2025年4月",
           "v2026_note": "2026年4月",
           "published_2025_all": true,
-          "published_2026": 97911,
-          "unpublished_2026": 3537,
+          "published_2026": 99265,
+          "unpublished_2026": 2183,
           "yoy": 12.0,
           "analysis": "4月生产同比明显增长（+12.0%）"
         },
@@ -188,8 +188,8 @@
           "v2025_note": "2025年5月",
           "v2026_note": "2026年5月",
           "published_2025_all": true,
-          "published_2026": 64853,
-          "unpublished_2026": 2388,
+          "published_2026": 65638,
+          "unpublished_2026": 1603,
           "yoy": -23.5,
           "analysis": "5月生产同比下降较多（-23.5%）"
         },
@@ -225,8 +225,8 @@
           "v2025_note": "2025年6月",
           "v2026_note": "2026年6月",
           "published_2025_all": true,
-          "published_2026": 19308,
-          "unpublished_2026": 23986,
+          "published_2026": 23669,
+          "unpublished_2026": 19625,
           "yoy": -29.3,
           "analysis": "6月生产同比下降较多（-29.3%）"
         },
@@ -262,8 +262,8 @@
           "v2025_note": "2025年7月",
           "v2026_note": "2026年7月",
           "published_2025_all": true,
-          "published_2026": 23462,
-          "unpublished_2026": 31994,
+          "published_2026": 24378,
+          "unpublished_2026": 31078,
           "yoy": -29.4,
           "analysis": "7月生产同比下降较多（-29.4%）"
         },
@@ -328,8 +328,8 @@
           "v2025_note": "2025年7月",
           "v2026_note": "2026年7月",
           "published_2025_all": true,
-          "published_2026": 23462,
-          "unpublished_2026": 31994,
+          "published_2026": 24378,
+          "unpublished_2026": 31078,
           "yoy": -29.4,
           "analysis": "7月生产同比下降较多（-29.4%）"
         },
@@ -339,8 +339,8 @@
           "v2025_note": "2025年1-7月",
           "v2026_note": "2026年1-7月",
           "published_2025_all": true,
-          "published_2026": 387588,
-          "unpublished_2026": 65989,
+          "published_2026": 398183,
+          "unpublished_2026": 55394,
           "yoy": -1.4,
           "analysis": "1-7月生产同比小幅下降（-1.4%）"
         }
@@ -499,7 +499,7 @@
       "published_2025": 460102,
       "unpublished_2025": 0,
       "published_2026": 387588,
-      "unpublished_2026": 65989,
+      "unpublished_2026": 55394,
       "published_2025_all": true,
       "monthly": {
         "labels": [
@@ -617,13 +617,13 @@
           0
         ],
         "2026": [
-          1261,
-          461,
-          2362,
-          3537,
-          2388,
-          23986,
-          31994
+          0,
+          0,
+          905,
+          2183,
+          1603,
+          19625,
+          31078
         ]
       },
       "unpublished_schedule": {
@@ -641,18 +641,18 @@
           "2027年5月"
         ],
         "values": [
-          8180,
-          8851,
-          6517,
-          5325,
-          3056,
-          23,
-          9,
-          11,
-          11,
-          11
+          12214,
+          14304,
+          11657,
+          9726,
+          6127,
+          1282,
+          19,
+          20,
+          21,
+          24
         ],
-        "total": 31994
+        "total": 55394
       },
       "next_month": {
         "month": 6,
@@ -65056,6 +65056,10 @@
       {
         "file": "7月数据  p4-0需要删除 是下线状态   增累计待发布数据明细\\26.7 专辑数据.csv",
         "type": "coll_26_current"
+      },
+      {
+        "file": "7月数据  p4-0需要删除 是下线状态   增累计待发布数据明细\\1-7月待发布明细.csv",
+        "type": "unpub_detail"
       },
       {
         "file": "7月数据  p4-0需要删除 是下线状态   增累计待发布数据明细\\25.8 生产数据.csv",
