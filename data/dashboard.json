@@ -2,7 +2,7 @@
   "summary": {
     "period": "2026年1-7月 · 全场景",
     "compare_period": "2025 vs 2026 · 教辅店铺 · 1-7月",
-    "generated_at": "2026-08-04 10:56",
+    "generated_at": "2026-08-04 11:48",
     "rules": {
       "brand": "res_title 中【】内文字",
       "book": "album_ids/album_id 去重计数",
@@ -1494,9 +1494,9 @@
     "note": "仅展示已提供的2025年8月生产数据与专辑数据，不做预估，不做2026对比。",
     "summary": {
       "production_count": 66552,
-      "production_books": 2130,
-      "collection_books": 2140,
-      "providers": 78
+      "production_books": 2115,
+      "collection_books": 2115,
+      "providers": 77
     },
     "top_providers": {
       "labels": [
@@ -1528,16 +1528,16 @@
         2009
       ],
       "collection_books": [
-        189,
+        188,
         142,
-        64,
-        108,
-        119,
-        91,
-        138,
+        62,
+        104,
+        118,
+        86,
+        135,
         33,
-        54,
-        70,
+        52,
+        67,
         45,
         26
       ]
@@ -1547,8 +1547,8 @@
         "provider": "山东绿卡教育科技有限公司",
         "production_count": 8425,
         "production_books": 188,
-        "collection_books": 189,
-        "collection_rows": 189,
+        "collection_books": 188,
+        "collection_rows": 188,
         "avg_price": 1.882
       },
       {
@@ -1563,40 +1563,40 @@
         "provider": "河北考源书业有限公司",
         "production_count": 5067,
         "production_books": 62,
-        "collection_books": 64,
-        "collection_rows": 64,
+        "collection_books": 62,
+        "collection_rows": 62,
         "avg_price": 2.574
       },
       {
         "provider": "安徽木牍教育图书有限公司",
         "production_count": 4358,
         "production_books": 110,
-        "collection_books": 108,
-        "collection_rows": 108,
+        "collection_books": 104,
+        "collection_rows": 104,
         "avg_price": 2.198
       },
       {
         "provider": "山东一帆融媒教育科技有限公司",
         "production_count": 4023,
         "production_books": 118,
-        "collection_books": 119,
-        "collection_rows": 119,
+        "collection_books": 118,
+        "collection_rows": 118,
         "avg_price": 3.456
       },
       {
         "provider": "山东众旺汇金教育科技有限公司",
         "production_count": 3613,
         "production_books": 86,
-        "collection_books": 91,
-        "collection_rows": 91,
+        "collection_books": 86,
+        "collection_rows": 86,
         "avg_price": 3.616
       },
       {
         "provider": "梁山启智教育图书有限公司",
         "production_count": 3535,
         "production_books": 135,
-        "collection_books": 138,
-        "collection_rows": 138,
+        "collection_books": 135,
+        "collection_rows": 135,
         "avg_price": 2.835
       },
       {
@@ -1611,16 +1611,16 @@
         "provider": "江西宇恒文化发展有限公司",
         "production_count": 2485,
         "production_books": 55,
-        "collection_books": 54,
-        "collection_rows": 54,
+        "collection_books": 52,
+        "collection_rows": 52,
         "avg_price": 2.117
       },
       {
         "provider": "理想众望教育科技北京有限公司",
         "production_count": 2341,
         "production_books": 67,
-        "collection_books": 70,
-        "collection_rows": 70,
+        "collection_books": 67,
+        "collection_rows": 67,
         "avg_price": 3.169
       },
       {
@@ -1683,8 +1683,8 @@
         "provider": "山东育博苑文化传媒有限公司",
         "production_count": 1061,
         "production_books": 42,
-        "collection_books": 45,
-        "collection_rows": 45,
+        "collection_books": 42,
+        "collection_rows": 42,
         "avg_price": 2.589
       },
       {
@@ -1747,8 +1747,8 @@
         "provider": "梁山高智传媒科技中心",
         "production_count": 488,
         "production_books": 59,
-        "collection_books": 63,
-        "collection_rows": 63,
+        "collection_books": 59,
+        "collection_rows": 59,
         "avg_price": 3.68
       },
       {
@@ -1779,8 +1779,8 @@
         "provider": "山东国中教育科技有限公司",
         "production_count": 415,
         "production_books": 31,
-        "collection_books": 35,
-        "collection_rows": 35,
+        "collection_books": 31,
+        "collection_rows": 31,
         "avg_price": 3.123
       },
       {
@@ -1835,8 +1835,8 @@
         "provider": "四川多能教育书业有限公司",
         "production_count": 272,
         "production_books": 9,
-        "collection_books": 11,
-        "collection_rows": 11,
+        "collection_books": 10,
+        "collection_rows": 10,
         "avg_price": 2.54
       },
       {
@@ -1907,8 +1907,8 @@
         "provider": "河北华冠图书有限公司",
         "production_count": 102,
         "production_books": 3,
-        "collection_books": 4,
-        "collection_rows": 4,
+        "collection_books": 3,
+        "collection_rows": 3,
         "avg_price": 3.118
       },
       {
@@ -1963,16 +1963,16 @@
         "provider": "湖北瀚海书航文化传媒有限公司",
         "production_count": 63,
         "production_books": 4,
-        "collection_books": 14,
-        "collection_rows": 14,
+        "collection_books": 4,
+        "collection_rows": 4,
         "avg_price": 2.032
       },
       {
         "provider": "课件创作营",
         "production_count": 61,
         "production_books": 19,
-        "collection_books": 14,
-        "collection_rows": 14,
+        "collection_books": 13,
+        "collection_rows": 13,
         "avg_price": 40.164
       },
       {
@@ -2075,8 +2075,8 @@
         "provider": "滨州市众邦图书有限公司",
         "production_count": 13,
         "production_books": 13,
-        "collection_books": 14,
-        "collection_rows": 14,
+        "collection_books": 13,
+        "collection_rows": 13,
         "avg_price": 1.692
       },
       {
@@ -2123,8 +2123,8 @@
         "provider": "深圳其土石出文化艺术有限公司",
         "production_count": 6,
         "production_books": 3,
-        "collection_books": 3,
-        "collection_rows": 3,
+        "collection_books": 2,
+        "collection_rows": 2,
         "avg_price": 18.0
       },
       {
@@ -2141,14 +2141,6 @@
         "production_books": 0,
         "collection_books": 3,
         "collection_rows": 3,
-        "avg_price": 0
-      },
-      {
-        "provider": "525432525432",
-        "production_count": 0,
-        "production_books": 0,
-        "collection_books": 1,
-        "collection_rows": 1,
         "avg_price": 0
       },
       {
@@ -2169,16 +2161,6 @@
       }
     ],
     "book_details": [
-      {
-        "provider": "525432525432",
-        "album_id": 3543897,
-        "title": "2024-2025学年新教材七年级下册英语同步单词速记",
-        "course_name": "初中英语",
-        "grade_names": "七年级",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "开学",
-        "document_count": 8
-      },
       {
         "provider": "中山市思而优文化发展有限公司",
         "album_id": 3537671,
@@ -6181,16 +6163,6 @@
       },
       {
         "provider": "四川多能教育书业有限公司",
-        "album_id": 3546150,
-        "title": "（配套课件）【指南针·课堂优化】2025-2026学年新教材八年级上册历史（统编版2024）",
-        "course_name": "初中历史",
-        "grade_names": "八年级",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "新授课",
-        "document_count": 0
-      },
-      {
-        "provider": "四川多能教育书业有限公司",
         "album_id": 3546164,
         "title": "（配套课件）【指南针·课堂优化】2025-2026学年新教材八年级上册语文（统编版2024）",
         "course_name": "初中语文",
@@ -6391,16 +6363,6 @@
       },
       {
         "provider": "安徽木牍教育图书有限公司",
-        "album_id": 3536182,
-        "title": "【木牍中考●名师教案】2025-2026学年九年级上册英语（译林版）",
-        "course_name": "初中英语",
-        "grade_names": "九年级",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "新授课",
-        "document_count": 0
-      },
-      {
-        "provider": "安徽木牍教育图书有限公司",
         "album_id": 3536183,
         "title": "【木牍中考●名师教案】2025-2026学年九年级上册语文（统编版）",
         "course_name": "初中语文",
@@ -6431,16 +6393,6 @@
       },
       {
         "provider": "安徽木牍教育图书有限公司",
-        "album_id": 3536286,
-        "title": "【木牍中考?课时A计划】2025-2026学年九年级上册英语听写本（译林版）",
-        "course_name": "初中英语",
-        "grade_names": "九年级",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "新授课",
-        "document_count": 10
-      },
-      {
-        "provider": "安徽木牍教育图书有限公司",
         "album_id": 3536288,
         "title": "【木牍中考?课时A计划】2025-2026学年九年级上册英语知识背记（人教版）",
         "course_name": "初中英语",
@@ -6448,26 +6400,6 @@
         "scenes_one_names": "同步教学",
         "scenes_two_names": "单元复习",
         "document_count": 9
-      },
-      {
-        "provider": "安徽木牍教育图书有限公司",
-        "album_id": 3536289,
-        "title": "【木牍中考?课时A计划】2025-2026学年九年级上册英语知识背记（外研版）",
-        "course_name": "初中英语",
-        "grade_names": "九年级",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "新授课",
-        "document_count": 0
-      },
-      {
-        "provider": "安徽木牍教育图书有限公司",
-        "album_id": 3536291,
-        "title": "【木牍中考?课时A计划】2025-2026学年九年级上册英语知识背记（译林版）",
-        "course_name": "初中英语",
-        "grade_names": "九年级",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "新授课",
-        "document_count": 0
       },
       {
         "provider": "安徽木牍教育图书有限公司",
@@ -8291,16 +8223,6 @@
       },
       {
         "provider": "山东一帆融媒教育科技有限公司",
-        "album_id": 3539512,
-        "title": "（配套课件）【新课程学案】2025-2026学年高中物理选择性必修第一册（人教版）",
-        "course_name": "高中物理",
-        "grade_names": "高一|高二",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "新授课",
-        "document_count": 0
-      },
-      {
-        "provider": "山东一帆融媒教育科技有限公司",
         "album_id": 3539545,
         "title": "（配套教参）【新课程学案】2025-2026学年高中物理选择性必修第一册（人教版）江苏北京专版",
         "course_name": "高中物理",
@@ -9481,16 +9403,6 @@
       },
       {
         "provider": "山东众旺汇金教育科技有限公司",
-        "album_id": 3538475,
-        "title": "【名师导航】2026年高考数学一轮总复习配套练习（人教A版）",
-        "course_name": "高中数学",
-        "grade_names": "高三",
-        "scenes_one_names": "高考复习",
-        "scenes_two_names": "一轮复习",
-        "document_count": 69
-      },
-      {
-        "provider": "山东众旺汇金教育科技有限公司",
         "album_id": 3538477,
         "title": "【名师导航】2026年高考英语一轮总复习讲义（人教版）",
         "course_name": "高中英语",
@@ -9508,16 +9420,6 @@
         "scenes_one_names": "高考复习",
         "scenes_two_names": "一轮复习",
         "document_count": 65
-      },
-      {
-        "provider": "山东众旺汇金教育科技有限公司",
-        "album_id": 3538480,
-        "title": "【名师导航】2026年高考英语一轮总复习配套练习（人教版）",
-        "course_name": "高中英语",
-        "grade_names": "高三",
-        "scenes_one_names": "高考复习",
-        "scenes_two_names": "一轮复习",
-        "document_count": 36
       },
       {
         "provider": "山东众旺汇金教育科技有限公司",
@@ -9571,16 +9473,6 @@
       },
       {
         "provider": "山东众旺汇金教育科技有限公司",
-        "album_id": 3538683,
-        "title": "【名师导航】2026年高考化学一轮总复习配套练习（鲁科版）",
-        "course_name": "高中化学",
-        "grade_names": "高三",
-        "scenes_one_names": "高考复习",
-        "scenes_two_names": "一轮复习",
-        "document_count": 60
-      },
-      {
-        "provider": "山东众旺汇金教育科技有限公司",
         "album_id": 3538692,
         "title": "【名师导航】2026年高考化学一轮总复习课件（人教版）",
         "course_name": "高中化学",
@@ -9601,16 +9493,6 @@
       },
       {
         "provider": "山东众旺汇金教育科技有限公司",
-        "album_id": 3538715,
-        "title": "【名师导航】2026年高考化学一轮总复习配套练习（人教版）",
-        "course_name": "高中化学",
-        "grade_names": "高三",
-        "scenes_one_names": "高考复习",
-        "scenes_two_names": "一轮复习",
-        "document_count": 62
-      },
-      {
-        "provider": "山东众旺汇金教育科技有限公司",
         "album_id": 3539349,
         "title": "【名师导航】2026年高考生物一轮总复习课件（人教版）",
         "course_name": "高中生物学",
@@ -9623,16 +9505,6 @@
         "provider": "山东众旺汇金教育科技有限公司",
         "album_id": 3539354,
         "title": "【名师导航】2026年高考生物一轮总复习教师用书（人教版）",
-        "course_name": "高中生物学",
-        "grade_names": "高三",
-        "scenes_one_names": "高考复习",
-        "scenes_two_names": "一轮复习",
-        "document_count": 53
-      },
-      {
-        "provider": "山东众旺汇金教育科技有限公司",
-        "album_id": 3539363,
-        "title": "【名师导航】2026年高考生物一轮总复习配套练习（人教版）",
         "course_name": "高中生物学",
         "grade_names": "高三",
         "scenes_one_names": "高考复习",
@@ -10548,46 +10420,6 @@
         "scenes_one_names": "同步教学",
         "scenes_two_names": "新授课",
         "document_count": 8
-      },
-      {
-        "provider": "山东国中教育科技有限公司",
-        "album_id": 3538707,
-        "title": "【训练达人】2025-2026学年新教材二年级上册数学同步练习（人教版2024）",
-        "course_name": "小学数学",
-        "grade_names": "二年级",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "单元复习",
-        "document_count": 8
-      },
-      {
-        "provider": "山东国中教育科技有限公司",
-        "album_id": 3538708,
-        "title": "【训练达人】2025-2026学年新教材一年级上册数学同步练习（人教版2024）",
-        "course_name": "小学数学",
-        "grade_names": "一年级",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "单元复习",
-        "document_count": 7
-      },
-      {
-        "provider": "山东国中教育科技有限公司",
-        "album_id": 3538709,
-        "title": "【同步训练】2025-2026学年新教材二年级上册语文同步练习（统编版2024）",
-        "course_name": "小学语文",
-        "grade_names": "二年级",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "单元复习",
-        "document_count": 8
-      },
-      {
-        "provider": "山东国中教育科技有限公司",
-        "album_id": 3538714,
-        "title": "【同步训练】2025-2026学年新教材一年级上册语文同步练习（统编版2024）",
-        "course_name": "小学语文",
-        "grade_names": "一年级",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "单元复习",
-        "document_count": 9
       },
       {
         "provider": "山东国中教育科技有限公司",
@@ -12101,16 +11933,6 @@
       },
       {
         "provider": "山东绿卡教育科技有限公司",
-        "album_id": 3545211,
-        "title": "【小学学霸作业本】2025-2026学年六年级上册数学讲解课件（北师大版2012）",
-        "course_name": "小学数学",
-        "grade_names": "六年级",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "新授课",
-        "document_count": 0
-      },
-      {
-        "provider": "山东绿卡教育科技有限公司",
         "album_id": 3545421,
         "title": "【小学学霸作业本】2025-2026学年新教材一年级上册数学讲解课件（人教版2024）",
         "course_name": "小学数学",
@@ -13428,36 +13250,6 @@
         "scenes_one_names": "同步教学",
         "scenes_two_names": "新授课",
         "document_count": 24
-      },
-      {
-        "provider": "山东育博苑文化传媒有限公司",
-        "album_id": 3545939,
-        "title": "（配套练习）【精讲精练】2024-2025学年高中历史 中外历史纲要（下）（统编版2019）",
-        "course_name": "高中历史",
-        "grade_names": "高一",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "单元复习|新授课",
-        "document_count": 0
-      },
-      {
-        "provider": "山东育博苑文化传媒有限公司",
-        "album_id": 3545940,
-        "title": "（配套教参）【精讲精练】2024-2025学年高中历史 中外历史纲要（下）（统编版2019）",
-        "course_name": "高中历史",
-        "grade_names": "高一",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "单元复习|新授课",
-        "document_count": 0
-      },
-      {
-        "provider": "山东育博苑文化传媒有限公司",
-        "album_id": 3545942,
-        "title": "（配套课件）【精讲精练】2024-2025学年高中历史 中外历史纲要（下）（统编版2019）",
-        "course_name": "高中历史",
-        "grade_names": "高一",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "单元复习|新授课",
-        "document_count": 0
       },
       {
         "provider": "山东育博苑文化传媒有限公司",
@@ -16121,36 +15913,6 @@
       },
       {
         "provider": "梁山启智教育图书有限公司",
-        "album_id": 3544302,
-        "title": "（配套课件）【金榜题名】2025-2026学年高二化学选择性必修3高中同步学案（鲁科版）",
-        "course_name": "高中化学",
-        "grade_names": "高二",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "新授课",
-        "document_count": 21
-      },
-      {
-        "provider": "梁山启智教育图书有限公司",
-        "album_id": 3544303,
-        "title": "（教师用书）【金榜题名】2025-2026学年高二化学选择性必修3高中同步学案（鲁科版）",
-        "course_name": "高中化学",
-        "grade_names": "高二",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "新授课",
-        "document_count": 24
-      },
-      {
-        "provider": "梁山启智教育图书有限公司",
-        "album_id": 3544304,
-        "title": "（配套练习）【金榜题名】2025-2026学年高二化学选择性必修3高中同步学案（鲁科版）",
-        "course_name": "高中化学",
-        "grade_names": "高二",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "新授课",
-        "document_count": 19
-      },
-      {
-        "provider": "梁山启智教育图书有限公司",
         "album_id": 3544777,
         "title": "（配套课件）【金榜题名】2025-2026学年高一历史必修中外历史纲要上高中同步学案（统编版）  ",
         "course_name": "高中历史",
@@ -16721,16 +16483,6 @@
       },
       {
         "provider": "梁山高智传媒科技中心",
-        "album_id": 3540873,
-        "title": "【突破课堂】2025-2026学年高中地理选择性必修1同步单元达标检测卷（鲁教版）",
-        "course_name": "高中地理",
-        "grade_names": "高二",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "",
-        "document_count": 0
-      },
-      {
-        "provider": "梁山高智传媒科技中心",
         "album_id": 3540874,
         "title": "【突破课堂】2025-2026学年高中地理选择性必修1同步单元达标检测卷（人教版）",
         "course_name": "高中地理",
@@ -16758,16 +16510,6 @@
         "scenes_one_names": "同步教学",
         "scenes_two_names": "",
         "document_count": 4
-      },
-      {
-        "provider": "梁山高智传媒科技中心",
-        "album_id": 3540882,
-        "title": "【突破课堂】2025-2026学年高中化学选择性必修1同步单元达标检测卷（苏教版）",
-        "course_name": "高中化学",
-        "grade_names": "高二",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "",
-        "document_count": 0
       },
       {
         "provider": "梁山高智传媒科技中心",
@@ -16878,26 +16620,6 @@
         "scenes_one_names": "同步教学",
         "scenes_two_names": "",
         "document_count": 5
-      },
-      {
-        "provider": "梁山高智传媒科技中心",
-        "album_id": 3540945,
-        "title": "【突破课堂】2025-2026学年高中思想政治必修4同步单元达标检测卷（统编版）",
-        "course_name": "高中思想政治",
-        "grade_names": "高二",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "",
-        "document_count": 5
-      },
-      {
-        "provider": "梁山高智传媒科技中心",
-        "album_id": 3540946,
-        "title": "【突破课堂】2025-2026学年高中思想政治选择性必修1同步单元达标检测卷（统编版）",
-        "course_name": "高中思想政治",
-        "grade_names": "高二",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "",
-        "document_count": 0
       },
       {
         "provider": "梁山高智传媒科技中心",
@@ -17201,16 +16923,6 @@
       },
       {
         "provider": "江西宇恒文化发展有限公司",
-        "album_id": 3536975,
-        "title": "-【学海风暴】2025-2026学年新教材八年级上册数学同步备课（人教版2024 安徽专版）",
-        "course_name": "初中数学",
-        "grade_names": "八年级",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "",
-        "document_count": 0
-      },
-      {
-        "provider": "江西宇恒文化发展有限公司",
         "album_id": 3536976,
         "title": "【学海风暴】2025-2026学年新教材八年级上册数学同步备课（湘教版2024）",
         "course_name": "初中数学",
@@ -17428,16 +17140,6 @@
         "scenes_one_names": "同步教学",
         "scenes_two_names": "",
         "document_count": 49
-      },
-      {
-        "provider": "江西宇恒文化发展有限公司",
-        "album_id": 3538002,
-        "title": "【学海乐园】2025-2026学年新教材四年级上册英语（湘少版三起2024）",
-        "course_name": "小学英语",
-        "grade_names": "四年级",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "新授课",
-        "document_count": 0
       },
       {
         "provider": "江西宇恒文化发展有限公司",
@@ -17950,16 +17652,6 @@
         "document_count": 34
       },
       {
-        "provider": "河北华冠图书有限公司",
-        "album_id": 3537657,
-        "title": "【金版教程】2025-2026学年高中物理选择性必修第一册创新导学案Word（粤教版）",
-        "course_name": "高中物理",
-        "grade_names": "高二",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "新授课",
-        "document_count": 0
-      },
-      {
         "provider": "河北考源书业有限公司",
         "album_id": 3537491,
         "title": " (作业课件)【赢在微点·顶层设计】2026年高中历史高考一轮总复习（通史版）",
@@ -18068,26 +17760,6 @@
         "scenes_one_names": "高考复习",
         "scenes_two_names": "一轮复习",
         "document_count": 63
-      },
-      {
-        "provider": "河北考源书业有限公司",
-        "album_id": 3537796,
-        "title": "（教师用书）【赢在微点·轻松课堂】2025-2026学年高中生物学必修一（人教版）新题型",
-        "course_name": "高中生物学",
-        "grade_names": "高一",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "单元复习|新授课",
-        "document_count": 62
-      },
-      {
-        "provider": "河北考源书业有限公司",
-        "album_id": 3537818,
-        "title": "（配套练习）【赢在微点·轻松课堂】2025-2026学年高中生物学必修一（人教版）新题型",
-        "course_name": "高中生物学",
-        "grade_names": "高一",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "单元复习|新授课",
-        "document_count": 62
       },
       {
         "provider": "河北考源书业有限公司",
@@ -19241,16 +18913,6 @@
       },
       {
         "provider": "深圳其土石出文化艺术有限公司",
-        "album_id": 3545054,
-        "title": "【艺术知侣原创课件】2025-2026学年七年级上册美术同步课件PPT(人教版)",
-        "course_name": "初中美术",
-        "grade_names": "七年级",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "新授课",
-        "document_count": 2
-      },
-      {
-        "provider": "深圳其土石出文化艺术有限公司",
         "album_id": 3545068,
         "title": "【艺术知侣原创课件】2025-2026学年八年级上册美术同步课件PPT(人美版)",
         "course_name": "初中美术",
@@ -19411,26 +19073,6 @@
       },
       {
         "provider": "湖北瀚海书航文化传媒有限公司",
-        "album_id": 3537282,
-        "title": "【名校培优课堂】2025-2026学年八年级上册语文同步教学课件PPT（人教版2024）",
-        "course_name": "初中语文",
-        "grade_names": "八年级",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "新授课",
-        "document_count": 34
-      },
-      {
-        "provider": "湖北瀚海书航文化传媒有限公司",
-        "album_id": 3537301,
-        "title": "【名校培优课堂】2025-2026学年八年级上册数学同步教学课件PPT（人教版2024）",
-        "course_name": "初中数学",
-        "grade_names": "八年级",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "新授课",
-        "document_count": 0
-      },
-      {
-        "provider": "湖北瀚海书航文化传媒有限公司",
         "album_id": 3537302,
         "title": "【名校培优课堂】2025-2026学年八年级上册语文同步作业课件PPT（人教版2024）",
         "course_name": "初中语文",
@@ -19441,36 +19083,6 @@
       },
       {
         "provider": "湖北瀚海书航文化传媒有限公司",
-        "album_id": 3537303,
-        "title": "【名校培优课堂】2025-2026学年八年级上册语文同步教案（人教版2024）",
-        "course_name": "初中语文",
-        "grade_names": "八年级",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "新授课",
-        "document_count": 39
-      },
-      {
-        "provider": "湖北瀚海书航文化传媒有限公司",
-        "album_id": 3537330,
-        "title": "【名校培优课堂】2025-2026学年八年级上册数学同步教学课件PPT（人教版2024）",
-        "course_name": "初中数学",
-        "grade_names": "八年级",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "新授课",
-        "document_count": 87
-      },
-      {
-        "provider": "湖北瀚海书航文化传媒有限公司",
-        "album_id": 3537331,
-        "title": "【名校培优课堂】2025-2026学年八年级上册数学同步教案（人教版2024）",
-        "course_name": "初中数学",
-        "grade_names": "八年级",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "新授课",
-        "document_count": 28
-      },
-      {
-        "provider": "湖北瀚海书航文化传媒有限公司",
         "album_id": 3537655,
         "title": "【名校培优课堂】2025-2026学年新教材三年级上册英语同步教案（Join in 外研剑桥英语2024）",
         "course_name": "小学英语",
@@ -19478,16 +19090,6 @@
         "scenes_one_names": "同步教学",
         "scenes_two_names": "新授课",
         "document_count": 32
-      },
-      {
-        "provider": "湖北瀚海书航文化传媒有限公司",
-        "album_id": 3537662,
-        "title": "【名校培优课堂】2025-2026学年四年级上册数学同步导学案（人教版）",
-        "course_name": "小学数学",
-        "grade_names": "四年级",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "单元复习|新授课",
-        "document_count": 74
       },
       {
         "provider": "湖北瀚海书航文化传媒有限公司",
@@ -19508,46 +19110,6 @@
         "scenes_one_names": "同步教学",
         "scenes_two_names": "单元复习",
         "document_count": 8
-      },
-      {
-        "provider": "湖北瀚海书航文化传媒有限公司",
-        "album_id": 3539630,
-        "title": "【名校培优课堂】2025-2026学年新教材三年级上册英语同步教学课件PPT（外研版2024）",
-        "course_name": "小学英语",
-        "grade_names": "三年级",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "新授课",
-        "document_count": 41
-      },
-      {
-        "provider": "湖北瀚海书航文化传媒有限公司",
-        "album_id": 3539639,
-        "title": "【名校培优课堂】2025-2026学年新教材三年级上册英语同步教学课件PPT（湘少版2024）",
-        "course_name": "小学英语",
-        "grade_names": "三年级",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "新授课",
-        "document_count": 39
-      },
-      {
-        "provider": "湖北瀚海书航文化传媒有限公司",
-        "album_id": 3539650,
-        "title": "【名校培优课堂】2025-2026学年新教材三年级上册英语同步教学课件PPT（精通版2024）",
-        "course_name": "小学英语",
-        "grade_names": "三年级",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "新授课",
-        "document_count": 33
-      },
-      {
-        "provider": "湖北瀚海书航文化传媒有限公司",
-        "album_id": 3539671,
-        "title": "【名校培优课堂】2025-2026学年新教材三年级上册英语同步教学课件PPT（冀教版2024）",
-        "course_name": "小学英语",
-        "grade_names": "三年级",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "新授课",
-        "document_count": 31
       },
       {
         "provider": "湖南天一文化发展有限公司",
@@ -19718,16 +19280,6 @@
         "scenes_one_names": "小升初复习",
         "scenes_two_names": "",
         "document_count": 1
-      },
-      {
-        "provider": "滨州市众邦图书有限公司",
-        "album_id": 3542105,
-        "title": "【语文帮】小升初必会文学常识大全",
-        "course_name": "小学语文",
-        "grade_names": "六年级",
-        "scenes_one_names": "小升初复习",
-        "scenes_two_names": "",
-        "document_count": 0
       },
       {
         "provider": "滨州市众邦图书有限公司",
@@ -20591,16 +20143,6 @@
       },
       {
         "provider": "理想众望教育科技北京有限公司",
-        "album_id": 3540128,
-        "title": "【高中必刷题】2025-2026学年高中化学必修第一册同步课件（苏教版）",
-        "course_name": "高中化学",
-        "grade_names": "高一",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "单元复习|新授课",
-        "document_count": 0
-      },
-      {
-        "provider": "理想众望教育科技北京有限公司",
         "album_id": 3540145,
         "title": "【高中必刷题】2025-2026学年高中物理选择性必修1同步课件 (教科版) ",
         "course_name": "高中物理",
@@ -20618,16 +20160,6 @@
         "scenes_one_names": "同步教学",
         "scenes_two_names": "单元复习|新授课",
         "document_count": 42
-      },
-      {
-        "provider": "理想众望教育科技北京有限公司",
-        "album_id": 3540184,
-        "title": "【高中必刷题】2025-2026学年高中物理选择性必修1同步课件 (人教版) ",
-        "course_name": "高中物理",
-        "grade_names": "高二",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "",
-        "document_count": 0
       },
       {
         "provider": "理想众望教育科技北京有限公司",
@@ -20708,16 +20240,6 @@
         "scenes_one_names": "同步教学",
         "scenes_two_names": "单元复习|新授课",
         "document_count": 30
-      },
-      {
-        "provider": "理想众望教育科技北京有限公司",
-        "album_id": 3540478,
-        "title": "【高中必刷题】2025-2026学年高中地理选择性必修1同步课件 (人教版)",
-        "course_name": "高中地理",
-        "grade_names": "高二",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "",
-        "document_count": 0
       },
       {
         "provider": "理想众望教育科技北京有限公司",
@@ -21998,16 +21520,6 @@
         "scenes_one_names": "同步教学",
         "scenes_two_names": "",
         "document_count": 14
-      },
-      {
-        "provider": "课件创作营",
-        "album_id": 3540849,
-        "title": "【制作优课PPT】2025-2026学年地理八年级上册备课包（人教版2024）",
-        "course_name": "初中地理",
-        "grade_names": "八年级",
-        "scenes_one_names": "同步教学",
-        "scenes_two_names": "新授课",
-        "document_count": 0
       },
       {
         "provider": "课件创作营",
@@ -65522,19 +65034,19 @@
         "type": "coll_26_june"
       },
       {
-        "file": "7月数据  p4-0需要删除 是下线状态\\25.7 发布数据.csv",
+        "file": "7月数据  p4-0需要删除 是下线状态   增累计待发布数据明细\\25.7 发布数据.csv",
         "type": "publish_25_current"
       },
       {
-        "file": "7月数据  p4-0需要删除 是下线状态\\26.7 发布数据.csv",
+        "file": "7月数据  p4-0需要删除 是下线状态   增累计待发布数据明细\\26.7 发布数据.csv",
         "type": "publish_26_current"
       },
       {
-        "file": "7月数据  p4-0需要删除 是下线状态\\25.7 月资料生产数据含待发布——含发布时间  P4_1_0待发布.csv",
+        "file": "7月数据  p4-0需要删除 是下线状态   增累计待发布数据明细\\25.7 月资料生产数据含待发布——含发布时间  P4_1_0待发布.csv",
         "type": "prod_25_current"
       },
       {
-        "file": "7月数据  p4-0需要删除 是下线状态\\26.7 生产数据.csv",
+        "file": "7月数据  p4-0需要删除 是下线状态   增累计待发布数据明细\\26.7 生产数据.csv",
         "type": "prod_26_current"
       },
       {
@@ -65542,15 +65054,15 @@
         "type": "coll_25_current"
       },
       {
-        "file": "7月数据  p4-0需要删除 是下线状态\\26.7 专辑数据.csv",
+        "file": "7月数据  p4-0需要删除 是下线状态   增累计待发布数据明细\\26.7 专辑数据.csv",
         "type": "coll_26_current"
       },
       {
-        "file": "7月数据  p4-0需要删除 是下线状态\\25.8 生产数据.csv",
+        "file": "7月数据  p4-0需要删除 是下线状态   增累计待发布数据明细\\25.8 生产数据.csv",
         "type": "prod_25_july"
       },
       {
-        "file": "7月数据  p4-0需要删除 是下线状态\\25.8 专辑数据.csv",
+        "file": "7月数据  p4-0需要删除 是下线状态   增累计待发布数据明细\\25.8 专辑数据.csv",
         "type": "coll_25_july"
       }
     ]
