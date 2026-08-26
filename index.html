@@ -649,8 +649,27 @@ let providerOverallPeriod="total";
 
 const fmt=n=>n>=10000?(n/10000).toFixed(1)+"万":n.toLocaleString("zh-CN");
 const fmtExact=n=>Number(n).toLocaleString("zh-CN");
-const yoy=(a,b)=>b===0?(a>0?100:0):+(((a-b)/b)*100).toFixed(1);
-const yoyHtml=(v)=>{const c=v>0?"up":v<0?"down":"flat";return`<span class="pill ${c}">${v>0?"+":""}${v}%</span>`};
+const yoy=(a,b)=>{
+  const curr=Number(a)||0, prev=Number(b)||0;
+  if(prev===0) return curr>0?{type:"new",value:null,text:"新增"}:{type:"flat",value:0,text:"0%"};
+  const value=+(((curr-prev)/prev)*100).toFixed(1);
+  return {type:value>0?"up":value<0?"down":"flat",value,text:`${value>0?"+":""}${value}%`};
+};
+const yoyHtml=(v)=>{
+  const obj=typeof v==="number"?{type:v>0?"up":v<0?"down":"flat",text:`${v>0?"+":""}${v}%`}:v;
+  const c=obj?.type==="new"?"flat":(obj?.type||"flat");
+  return`<span class="pill ${c}">${obj?.text??"—"}</span>`;
+};
+const yoyValue=v=>typeof v==="number"?v:(v?.value??null);
+const yoyText=v=>{
+  if(v==null) return "—";
+  if(typeof v==="number") return `${v>0?"+":""}${v}%`;
+  return v.text??"—";
+};
+const yoyColor=v=>{
+  const obj=typeof v==="number"?{type:v>0?"up":v<0?"down":"flat"}:v;
+  return obj?.type==="down"?CDOWN:obj?.type==="up"?CUP:"#888";
+};
 
 async function fetchJson(path){
   const r=await fetch(`${path}?v=${Date.now()}`, {cache:"no-store"});
@@ -685,7 +704,7 @@ function comboTooltip(params, rows){
     <span style="color:${C25}">■</span> 2025：${fmt(d.v25)}<br/>
     <span style="color:${C26}">■</span> 2026：${fmt(d.v26)}<br/>
     增减：${d.delta>=0?"+":""}${fmt(d.delta)}<br/>
-    <b>同比：${d.yoyPct>0?"+":""}${d.yoyPct}%</b>
+    <b>同比：${yoyText(d.yoyPct)}</b>
   </div>`;
 }
 
@@ -713,13 +732,13 @@ function volumeBarStyle(base, top){
 function yoyLineSeries(rows, compact){
   return{
     name:"同比",type:"line",yAxisIndex:1,smooth:false,symbol:"circle",symbolSize:compact?6:8,
-    data:rows.map(d=>d.yoyPct),connectNulls:false,z:10,
+    data:rows.map(d=>yoyValue(d.yoyPct)),connectNulls:false,z:10,
     lineStyle:{width:2,type:"dashed",color:"#999"},
-    itemStyle:{color:(p)=>{const v=rows[p.dataIndex].yoyPct;return v==null?"#bbb":v>=0?CUP:CDOWN;},borderWidth:2,borderColor:"#fff"},
+    itemStyle:{color:(p)=>yoyColor(rows[p.dataIndex].yoyPct),borderWidth:2,borderColor:"#fff"},
     label:{show:true,position:"top",distance:compact?8:12,fontSize:compact?10:11,fontWeight:700,
       backgroundColor:"rgba(255,255,255,.92)",borderRadius:3,padding:[2,5],
       formatter:p=>p.value==null?"":(p.value>0?"+":"")+p.value+"%",
-      color:(p)=>{const v=rows[p.dataIndex].yoyPct;return v==null?"#999":v>=0?CUP:CDOWN;}}
+      color:(p)=>yoyColor(rows[p.dataIndex].yoyPct)}
   };
 }
 
@@ -762,7 +781,7 @@ function buildPriceRows(priceData){
 
 function priceTooltip(params, rows){
   const i=params[0].dataIndex, d=rows[i];
-  const yoyTxt=d.yoyPct==null?"—":(d.yoyPct>0?"+":"")+d.yoyPct+"%";
+  const yoyTxt=yoyText(d.yoyPct);
   return `<div style="font-size:13px;line-height:1.8">
     <b>${d.label}</b><br/>
     <span style="color:${C25}">■</span> 2025：${d.v25??"—"} 元<br/>
@@ -858,7 +877,8 @@ function metricShortName(metric){
 }
 
 function yoyChipClass(y){
-  return y>0?"up":y<0?"down":"flat";
+  const obj=typeof y==="number"?{type:y>0?"up":y<0?"down":"flat"}:y;
+  return obj?.type==="up"?"up":obj?.type==="down"?"down":"flat";
 }
 
 function renderOverallKpiCards(rows, viewKey, cfg){
@@ -888,9 +908,8 @@ function renderOverallKpiCards(rows, viewKey, cfg){
     let foot="";
     if(!simple&&v.yoy!=null){
       const yoyCls=yoyChipClass(v.yoy);
-      const yoySign=v.yoy>0?"+":"";
       foot=`<div class="overall-kpi-foot">
-        <span class="overall-kpi-chip ${yoyCls}">同比 <b>${yoySign}${v.yoy}%</b></span>
+        <span class="overall-kpi-chip ${yoyCls}">同比 <b>${yoyText(v.yoy)}</b></span>
         <span class="overall-kpi-chip ref-y25">2025 <b>${fmtVal(v.v2025)}</b></span>
       </div>`;
     }else{
@@ -1442,13 +1461,13 @@ function renderProviderSummary(p){
     {title:"均定价 (元)", y25:a.avg_price, y26:b.avg_price, yoyPct:yoy(b.avg_price,a.avg_price)},
   ];
   document.getElementById("provider-summary").innerHTML=items.map(it=>{
-    const cls=it.yoyPct>0?"up":it.yoyPct<0?"down":"flat";
+    const cls=yoyChipClass(it.yoyPct);
     return`<div class="prov-kpi">
       <div class="prov-kpi-title">${it.title}</div>
       <div class="prov-kpi-row"><span class="yr y25">2025</span><span class="val">${it.y25}</span></div>
       <div class="prov-kpi-row"><span class="yr y26">2026</span><span class="val">${it.y26}</span></div>
       <div class="prov-kpi-yoy"><span class="compare-label">同比</span>
-        <span class="compare-val ${cls}">${it.yoyPct>0?"+":""}${it.yoyPct}%</span></div>
+        <span class="compare-val ${cls}">${yoyText(it.yoyPct)}</span></div>
     </div>`;
   }).join("");
 }
