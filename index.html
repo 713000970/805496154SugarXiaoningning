@@ -640,6 +640,8 @@
 <script>
 const C25="#c45c26", C26="#1e5f74", CUP="#2d6a4f", CDOWN="#d94f4f";
 let DATA=null;
+let PROVIDER_DETAILS=null;
+let JULY_DETAILS=null;
 let chartCollection=null, chartProduction=null, chartPriceGlobal=null, chartPriceDist=null, chartPriceDistChange=null;
 let chartPriceDistMonth=null, chartPriceDistChangeMonth=null;
 let chartPublish=null, chartScene=null, chartProvider=null, chartPriceProvider=null, chartJulyProvider=null, activeProvider=null;
@@ -649,6 +651,12 @@ const fmt=n=>n>=10000?(n/10000).toFixed(1)+"万":n.toLocaleString("zh-CN");
 const fmtExact=n=>Number(n).toLocaleString("zh-CN");
 const yoy=(a,b)=>b===0?(a>0?100:0):+(((a-b)/b)*100).toFixed(1);
 const yoyHtml=(v)=>{const c=v>0?"up":v<0?"down":"flat";return`<span class="pill ${c}">${v>0?"+":""}${v}%</span>`};
+
+async function fetchJson(path){
+  const r=await fetch(`${path}?v=${Date.now()}`, {cache:"no-store"});
+  if(!r.ok) throw new Error(`无法加载 ${path}`);
+  return r.json();
+}
 
 /** 按自然月对齐 2025/2026，计算同比 */
 function buildMonthlyYoY(monthly){
@@ -1221,16 +1229,16 @@ function renderJulySection(){
     </div>`).join("");
   renderJulyProviderChart();
   renderJulyProviderTable();
-  renderJulyBookTable();
+  renderJulyBookTable(false);
   const search=document.getElementById("search-july-book");
   if(search&&!search.dataset.bound){
     search.dataset.bound="1";
-    search.addEventListener("input",()=>renderJulyBookTable());
+    search.addEventListener("input",()=>renderJulyBookTable(true));
   }
   const providerSearch=document.getElementById("search-july-book-provider");
   if(providerSearch&&!providerSearch.dataset.bound){
     providerSearch.dataset.bound="1";
-    providerSearch.addEventListener("input",()=>renderJulyBookTable());
+    providerSearch.addEventListener("input",()=>renderJulyBookTable(true));
   }
 }
 
@@ -1269,12 +1277,31 @@ function renderJulyProviderTable(){
   </tr>`).join("");
 }
 
-function renderJulyBookTable(){
+async function ensureJulyDetails(){
+  if(JULY_DETAILS) return JULY_DETAILS;
+  JULY_DETAILS=await fetchJson("data/details/july-detail.json");
+  return JULY_DETAILS;
+}
+
+async function ensureProviderDetails(){
+  if(PROVIDER_DETAILS) return PROVIDER_DETAILS;
+  PROVIDER_DETAILS=await fetchJson("data/details/providers-detail.json");
+  return PROVIDER_DETAILS;
+}
+
+async function renderJulyBookTable(loadDetails=true){
   const tb=document.querySelector("#table-july-books tbody");
   if(!tb) return;
+  if(!loadDetails){
+    const count=DATA.july?.summary?.collection_books||0;
+    tb.innerHTML=`<tr><td colspan="7">图书明细已延迟加载，输入店铺或图书关键词后显示。共 ${fmt(count)} 本。</td></tr>`;
+    return;
+  }
+  tb.innerHTML="<tr><td colspan='7'>正在加载图书明细...</td></tr>";
+  const detail=await ensureJulyDetails();
   const textQ=(document.getElementById("search-july-book")?.value||"").trim().toLowerCase();
   const providerQ=(document.getElementById("search-july-book-provider")?.value||"").trim().toLowerCase();
-  const rows=(DATA.july?.book_details||[]).filter(r=>{
+  const rows=(detail.book_details||[]).filter(r=>{
     const provider=String(r.provider||"").toLowerCase();
     const text=`${r.provider} ${r.title} ${r.course_name} ${r.grade_names}`.toLowerCase();
     return (!textQ||text.includes(textQ))&&(!providerQ||provider.includes(providerQ));
@@ -1291,9 +1318,7 @@ function renderJulyBookTable(){
 }
 
 async function load(){
-  const r=await fetch(`data/dashboard.json?v=${Date.now()}`, {cache:"no-store"});
-  if(!r.ok) throw new Error("无法加载 data/dashboard.json");
-  DATA=await r.json();
+  DATA=await fetchJson("data/dashboard.json");
   renderHeader();
   initShareButton();
   initSideToc();
@@ -1526,14 +1551,25 @@ function initProviderSelect(){
   document.addEventListener("click",e=>{
     if(!document.getElementById("provider-combobox").contains(e.target)) hideProviderDropdown();
   });
-  selectProvider(DATA.providers[0]?.provider);
+  const first=DATA.providers[0];
+  if(first){
+    activeProvider=first.provider;
+    updateProviderInput(first.provider);
+    renderProviderTable(document.getElementById("search-provider").value);
+    renderProviderSummary(first);
+    renderProviderChart(first);
+    renderPriceChartProvider(first);
+    renderMonthlyUploadTable(first);
+    renderMonthlyPriceTable(first);
+    document.querySelector("#table-brands tbody").innerHTML="<tr><td colspan='10'>点击店铺或在搜索框确认后加载品牌明细。</td></tr>";
+  }
 }
 
 function updateProviderInput(name){
   document.getElementById("select-provider-input").value=name||"";
 }
 
-function selectProvider(name, scroll=false){
+async function selectProvider(name, scroll=false){
   activeProvider=name;
   updateProviderInput(name);
   renderProviderTable(document.getElementById("search-provider").value);
@@ -1548,9 +1584,12 @@ function selectProvider(name, scroll=false){
   if(scroll) document.getElementById("provider-detail").scrollIntoView({behavior:"smooth",block:"start"});
 }
 
-function renderBrandTable(p){
+async function renderBrandTable(p){
   const tb=document.querySelector("#table-brands tbody");
-  const sorted=[...p.brands].sort((a,b)=>b["2026"].res_count-a["2026"].res_count);
+  tb.innerHTML="<tr><td colspan='10'>正在加载品牌明细...</td></tr>";
+  const detail=await ensureProviderDetails();
+  const detailRow=(detail.providers||[]).find(x=>x.provider===p.provider);
+  const sorted=[...(detailRow?.brands||[])].sort((a,b)=>b["2026"].res_count-a["2026"].res_count);
   tb.innerHTML=sorted.map(row=>{
     const a=row["2025"], b=row["2026"];
     const ry=yoy(b.res_count,a.res_count), rb=yoy(b.book_count,a.book_count), rp=yoy(b.avg_price,a.avg_price);
