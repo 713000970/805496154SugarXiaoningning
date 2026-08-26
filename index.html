@@ -1325,20 +1325,20 @@ function renderJulyAiAndForecast(){
   const forecastEl=document.getElementById("july-forecast-grid");
   if(forecastEl){
     forecastEl.innerHTML=`
-      <div class="forecast-card">
+      <div class="forecast-card primary">
         <div class="forecast-label">同期数据预估 · ${nextLabel}</div>
         <div class="forecast-value">${fmt(Math.round(samePeriodNext))}<span class="unit">份</span></div>
-        <div class="forecast-note">直接参考上一年同期下月上传/生产量，即 2025年${nextLabel}生产数据。</div>
+        <div class="forecast-note">直接参考上一年同期下月上传/生产量。当前预估 ${nextLabel} 时，该值更适合作为主要参考。</div>
       </div>
-      <div class="forecast-card primary">
+      <div class="forecast-card">
         <div class="forecast-label">教学周期节奏预估 · ${nextLabel}</div>
         <div class="forecast-value">${cycleForecast==null?"—":fmt(Math.round(cycleForecast))}<span class="unit">份</span></div>
-        <div class="forecast-note">公式：本周期已生产量 × 上一周期下月生产量 ÷ 上一周期已发生月份生产量。</div>
+        <div class="forecast-note">公式：本周期已生产量 × 上一周期下月生产量 ÷ 上一周期已发生月份生产量；周期初期可能偏保守。</div>
       </div>`;
   }
   renderAiBox("ai-july-analysis","AI分析",[
-    `同期下月数据为 2025年${nextLabel}生产 ${fmt(samePeriodNext)} 份，涉及 ${fmt(d.summary?.providers||0)} 家店铺，可作为 2026年${nextLabel}的基础参照。`,
-    current25?`按教学周期节奏测算：2026年${currentLabel}已生产 ${fmt(current26)} 份，2025年${currentLabel}生产 ${fmt(current25)} 份，对应 2026年${nextLabel}预估约 ${fmt(Math.round(cycleForecast))} 份。`:`上一周期已发生月份生产量为 0，暂无法使用周期节奏公式测算。`,
+    `同期下月数据为 2025年${nextLabel}生产 ${fmt(samePeriodNext)} 份，涉及 ${fmt(d.summary?.providers||0)} 家店铺；考虑教学周期初期波动，当前建议优先参考同期数据预估。`,
+    current25?`教学周期节奏预估约 ${fmt(Math.round(cycleForecast))} 份。该算法只基于 2026年${currentLabel}已生产 ${fmt(current26)} 份与上一周期${currentLabel}节奏测算，若${nextLabel}存在集中上传，结果可能偏保守。`:`上一周期已发生月份生产量为 0，暂无法使用周期节奏公式测算。`,
     `该预估关注上传/生产口径，不等同于用户可见的发布量；待发布资源仍需结合 min_online_time 排期观察。`
   ]);
 }
