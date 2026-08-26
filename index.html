@@ -225,6 +225,15 @@
     .july-kpi-card{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:16px;text-align:center}
     .july-kpi-label{font-size:12px;color:var(--muted);margin-bottom:8px}
     .july-kpi-value{font-size:28px;font-weight:700;font-variant-numeric:tabular-nums}
+    .ai-box{background:linear-gradient(180deg,#f8fcf9,#fff);border:1px solid var(--green-border);border-radius:10px;padding:14px 16px;margin:0 0 18px;box-shadow:0 2px 10px rgba(45,106,79,.05)}
+    .ai-box-title{font-size:14px;font-weight:800;color:var(--up);margin-bottom:8px}
+    .ai-box ul{padding-left:18px;margin:0;color:#444;font-size:13px;line-height:1.7}
+    .forecast-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:18px}
+    .forecast-card{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:16px}
+    .forecast-card.primary{background:linear-gradient(180deg,#eef8f0,#fff);border-color:var(--green-border)}
+    .forecast-label{font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:600}
+    .forecast-value{font-size:30px;font-weight:800;color:var(--ink);line-height:1.15;font-variant-numeric:tabular-nums}
+    .forecast-note{font-size:12px;color:#666;margin-top:8px;line-height:1.6}
     @media(max-width:1200px){
       .overall-kpi-grid.cols-5{grid-template-columns:repeat(3,minmax(0,1fr))}
       .overall-kpi-grid.cols-4{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -239,7 +248,7 @@
       .chart-grid-2,.tables-grid-2{grid-template-columns:1fr}
       .publish-scene-grid,.provider-insight-grid{grid-template-columns:1fr}
       .publish-scene-grid .publish-panel{grid-column:auto}
-      .overall-kpi-grid.cols-4,.overall-kpi-grid.cols-5,.july-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .overall-kpi-grid.cols-4,.overall-kpi-grid.cols-5,.july-kpi-grid,.forecast-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
       .mini-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
       .unpub-list{gap:8px;padding:14px 10px}
       .unpub-row{min-width:68px;height:220px;padding-left:8px;padding-right:8px}
@@ -247,6 +256,9 @@
       .section-nav{grid-template-columns:1fr}
       .section-nav::before{width:100%;margin-bottom:2px}
       .side-toc{display:none}
+    }
+    @media(max-width:560px){
+      .forecast-grid{grid-template-columns:1fr}
     }
     @media(max-width:1500px){
       .side-toc{right:14px;top:auto;bottom:16px;width:178px}
@@ -301,6 +313,7 @@
     <div class="section-head">
       <div class="section-title">1、整体分析</div>
     </div>
+    <div class="ai-box" id="ai-overall-analysis"></div>
     <div class="overall-sub-head">
       <div class="sub-head-text">
         <div class="block-title" style="margin-top:0" id="overall-view-title">当月数据（7月）</div>
@@ -480,6 +493,8 @@
         <input type="search" id="search-july-book" placeholder="搜索店铺或图书名称…" />
       </div>
     </div>
+    <div class="ai-box" id="ai-july-analysis"></div>
+    <div class="forecast-grid" id="july-forecast-grid"></div>
     <div class="july-kpi-grid" id="july-kpi-grid"></div>
     <div class="chart-grid-2">
       <div class="chart-panel">
@@ -529,6 +544,7 @@
         <input type="search" id="search-provider" placeholder="搜索店铺名称…" />
       </div>
     </div>
+    <div class="ai-box" id="ai-provider-analysis"></div>
     <div class="provider-insight-grid" id="provider-overall-kpis"></div>
     <div class="section-head" style="margin:4px 0 12px">
       <div class="section-title" id="provider-table-title" style="font-size:15px">全部店铺概览 · 1-7月累计</div>
@@ -639,9 +655,8 @@
 </div>
 <script>
 const C25="#c45c26", C26="#1e5f74", CUP="#2d6a4f", CDOWN="#d94f4f";
+const PERIOD_MONTHS=["01","02","03","04","05","06","07"];
 let DATA=null;
-let PROVIDER_DETAILS=null;
-let JULY_DETAILS=null;
 let chartCollection=null, chartProduction=null, chartPriceGlobal=null, chartPriceDist=null, chartPriceDistChange=null;
 let chartPriceDistMonth=null, chartPriceDistChangeMonth=null;
 let chartPublish=null, chartScene=null, chartProvider=null, chartPriceProvider=null, chartJulyProvider=null, activeProvider=null;
@@ -670,6 +685,15 @@ const yoyColor=v=>{
   const obj=typeof v==="number"?{type:v>0?"up":v<0?"down":"flat"}:v;
   return obj?.type==="down"?CDOWN:obj?.type==="up"?CUP:"#888";
 };
+const pctText=v=>v==null?"—":`${v>0?"+":""}${v}%`;
+const trendWord=v=>v>0?"增长":v<0?"下降":"持平";
+const safeDiv=(a,b)=>Number(b)?Number(a)/Number(b):null;
+function renderAiBox(id, title, lines){
+  const el=document.getElementById(id);
+  if(!el) return;
+  const clean=lines.filter(Boolean);
+  el.innerHTML=`<div class="ai-box-title">${title}</div><ul>${clean.map(t=>`<li>${t}</li>`).join("")}</ul>`;
+}
 
 async function fetchJson(path){
   const r=await fetch(`${path}?v=${Date.now()}`, {cache:"no-store"});
@@ -926,6 +950,29 @@ function renderOverallKpiCards(rows, viewKey, cfg){
   }).join("");
 }
 
+function renderOverallAiAnalysis(mode, rows, viewKey){
+  const label=mode==="month"?`${parseInt(overallMonth,10)}月`:"1-7月累计";
+  const getVal=name=>{
+    const r=(rows||[]).find(x=>x.metric.includes(name));
+    let v=r?.[viewKey];
+    if(mode==="month"){
+      const mv=DATA.overall?.month_views?.[overallMonth]||{};
+      if(name==="上新店铺") v=mv.provider||v;
+      if(name==="图书征集") v=mv.collection||v;
+      if(name==="资料生产") v=mv.production||v;
+      if(name==="资料发布") v=mv.publish||v;
+    }
+    return v||{};
+  };
+  const prod=getVal("资料生产"), pub=getVal("资料发布"), coll=getVal("图书征集"), provider=getVal("上新店铺");
+  const releaseRate=safeDiv(pub.v2026,prod.v2026);
+  renderAiBox("ai-overall-analysis","AI分析",[
+    `${label}生产 ${fmt(prod.v2026||0)} 份，同比${trendWord(prod.yoy)} ${pctText(prod.yoy)}；发布 ${fmt(pub.v2026||0)} 份，同比${trendWord(pub.yoy)} ${pctText(pub.yoy)}。`,
+    `图书征集 ${fmt(coll.v2026||0)} 本，上新/活跃店铺 ${fmt(provider.v2026||0)} 家，可用于观察供给储备和店铺参与度。`,
+    releaseRate!=null?`发布/生产释放比例约 ${(releaseRate*100).toFixed(1)}%，待发布 ${fmt(prod.unpublished_2026||0)} 份；若释放比例偏低，说明本期生产仍有较多资源处在排期中。`:null
+  ]);
+}
+
 function setOverallView(mode){
   if(!OVERALL_VIEWS[mode]||!DATA?.overall) return;
   overallViewMode=mode;
@@ -948,6 +995,7 @@ function setOverallView(mode){
     btn.setAttribute("aria-selected",active?"true":"false");
   });
   renderOverallKpiCards(DATA.overall.summary_table, cfg.key, cfg);
+  renderOverallAiAnalysis(mode, DATA.overall.summary_table, cfg.key);
 }
 
 function initOverallViewToggle(){
@@ -1235,6 +1283,7 @@ function renderJulySection(){
   section.hidden=false;
   document.getElementById("july-title").textContent="同期次月生产与图书征集";
   document.getElementById("july-note").textContent=`${d.period||"2025年7月"} · ${d.note||"仅展示已提供数据"}`;
+  renderJulyAiAndForecast();
   const s=d.summary||{};
   const kpis=[
     ["生产资料",s.production_count,"份"],
@@ -1259,6 +1308,39 @@ function renderJulySection(){
     providerSearch.dataset.bound="1";
     providerSearch.addEventListener("input",()=>renderJulyBookTable(true));
   }
+}
+
+function renderJulyAiAndForecast(){
+  const d=DATA.july||{};
+  const o=DATA.overall||{};
+  const prodMonthly=o.production?.monthly||{};
+  const currentMm="07";
+  const nextMm="08";
+  const currentLabel=`${parseInt(currentMm,10)}月`;
+  const nextLabel=`${parseInt(nextMm,10)}月`;
+  const current26=Number(prodMonthly["2026"]?.[PERIOD_MONTHS.indexOf(currentMm)]||0);
+  const current25=Number(prodMonthly["2025"]?.[PERIOD_MONTHS.indexOf(currentMm)]||0);
+  const samePeriodNext=Number(d.summary?.production_count||0);
+  const cycleForecast=current25?samePeriodNext*current26/current25:null;
+  const forecastEl=document.getElementById("july-forecast-grid");
+  if(forecastEl){
+    forecastEl.innerHTML=`
+      <div class="forecast-card">
+        <div class="forecast-label">同期数据预估 · ${nextLabel}</div>
+        <div class="forecast-value">${fmt(Math.round(samePeriodNext))}<span class="unit">份</span></div>
+        <div class="forecast-note">直接参考上一年同期下月上传/生产量，即 2025年${nextLabel}生产数据。</div>
+      </div>
+      <div class="forecast-card primary">
+        <div class="forecast-label">教学周期节奏预估 · ${nextLabel}</div>
+        <div class="forecast-value">${cycleForecast==null?"—":fmt(Math.round(cycleForecast))}<span class="unit">份</span></div>
+        <div class="forecast-note">公式：本周期已生产量 × 上一周期下月生产量 ÷ 上一周期已发生月份生产量。</div>
+      </div>`;
+  }
+  renderAiBox("ai-july-analysis","AI分析",[
+    `同期下月数据为 2025年${nextLabel}生产 ${fmt(samePeriodNext)} 份，涉及 ${fmt(d.summary?.providers||0)} 家店铺，可作为 2026年${nextLabel}的基础参照。`,
+    current25?`按教学周期节奏测算：2026年${currentLabel}已生产 ${fmt(current26)} 份，2025年${currentLabel}生产 ${fmt(current25)} 份，对应 2026年${nextLabel}预估约 ${fmt(Math.round(cycleForecast))} 份。`:`上一周期已发生月份生产量为 0，暂无法使用周期节奏公式测算。`,
+    `该预估关注上传/生产口径，不等同于用户可见的发布量；待发布资源仍需结合 min_online_time 排期观察。`
+  ]);
 }
 
 function initSideToc(){
@@ -1431,6 +1513,14 @@ function renderProviderOverall(){
   }).filter(r=>r.v25||r.v26);
   const up=changes.filter(r=>r.delta>0).sort((a,b)=>b.delta-a.delta).slice(0,8);
   const down=changes.filter(r=>r.delta<0).sort((a,b)=>a.delta-b.delta).slice(0,8);
+  const total26=changes.reduce((sum,r)=>sum+r.v26,0);
+  const top=changes.slice().sort((a,b)=>b.v26-a.v26).slice(0,3);
+  const topShare=total26?top.reduce((sum,r)=>sum+r.v26,0)/total26*100:0;
+  renderAiBox("ai-provider-analysis","AI分析",[
+    `${periodLabel}共有 ${fmt(changes.length)} 家店铺有生产/发布数据，其中增长店铺 ${fmt(changes.filter(r=>r.delta>0).length)} 家，下降店铺 ${fmt(changes.filter(r=>r.delta<0).length)} 家。`,
+    up[0]?`增长贡献最高的是 ${up[0].provider}，较同期增加 ${fmt(up[0].delta)} 份；下降最多的是 ${down[0]?.provider||"暂无"}${down[0]?`，减少 ${fmt(Math.abs(down[0].delta))} 份`:""}。`:null,
+    top.length?`当前产出 Top3 店铺为 ${top.map(r=>r.provider).join("、")}，合计占 ${topShare.toFixed(1)}%，可重点关注头部店铺的节奏变化。`:null
+  ]);
   const table=(list,empty)=>list.length?`<table class="compare-table">
     <thead><tr><th>店铺</th><th class="col-25">2025</th><th class="col-26">2026</th><th>增减</th><th class="col-yoy">同比</th></tr></thead>
     <tbody>${list.map(r=>`<tr>
