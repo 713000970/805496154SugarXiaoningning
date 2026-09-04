@@ -1337,13 +1337,13 @@ function renderJulyAiAndForecast(){
       <div class="forecast-card">
         <div class="forecast-label">教学周期节奏预估 · ${nextLabel}</div>
         <div class="forecast-value">${cycleForecast==null?"—":fmt(Math.round(cycleForecast))}<span class="unit">份</span></div>
-        <div class="forecast-note">公式：本周期已生产量 × 上一周期下月生产量 ÷ 上一周期已发生月份生产量；周期初期可能偏保守。</div>
+        <div class="forecast-note">基于上一教学周期的月度生产节奏占比，结合本周期已生产量推算下月参考值。<br/>历史节奏系数：上一周期下月生产量 ÷ 上一周期已发生月份生产量；下月预估：本周期已生产量 × 历史节奏系数。</div>
       </div>`;
   }
   renderAiBox("ai-july-analysis","AI分析",[
     `8月实际生产 ${fmt(current26)} 份，已接近/达到同期水平时，9月更适合参考上一年同期月度值，而不是只看单月同比。`,
     `同期 9 月预估为 2025年${nextLabel}生产 ${fmt(samePeriodNext)} 份，涉及 ${fmt(d.summary?.providers||0)} 家店铺，可作为 2026年${nextLabel}的主参考。`,
-    current25?`教学周期节奏预估约 ${fmt(Math.round(cycleForecast))} 份。该算法只基于 2026年${currentLabel}已生产 ${fmt(current26)} 份与上一周期${currentLabel}节奏测算，若${nextLabel}存在集中上传，结果可能偏保守。`:`上一周期已发生月份生产量为 0，暂无法使用周期节奏公式测算。`,
+    current25?`教学周期节奏预估约 ${fmt(Math.round(cycleForecast))} 份。它不是按单月同比硬推，而是用上一教学周期的月度节奏占比来反推；如果 ${nextLabel} 出现集中上传，结果会偏保守。`:`上一周期已发生月份生产量为 0，暂无法使用周期节奏公式测算。`,
     `该预估关注上传/生产口径，不等同于用户可见的发布量；待发布资源仍需结合 min_online_time 排期观察。`
   ]);
 }
